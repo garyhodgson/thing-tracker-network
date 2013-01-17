@@ -1,0 +1,18 @@
+schema({
+  "things" : Array.of(
+      {
+          "title": String,
+          "URL": String,
+          "*author": String,
+          "*license": String,
+          "*tags": Array.of(String),
+          "*thumbnailURL": String,
+          "*description": String
+      }
+  ),
+  "*trackers" : Array.of(
+      {
+          "URL": String
+      }
+  )
+})
