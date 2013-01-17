@@ -1,11 +1,18 @@
 {
    "type":"object",
    "properties":{
+      "version":{
+         "type":"number"
+      },
       "things":{
-         "type":"array",
+         "tpye":"array",
          "items":{
             "type":"object",
             "properties":{
+               "UUID":{
+                  "type":"string",
+                  "required":true
+               },
                "title":{
                   "type":"string",
                   "required":true
@@ -14,30 +21,169 @@
                   "type":"string",
                   "required":true
                },
-               "author":{
-                  "type":"string"
+               "authors":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"object",
+                     "properties":{
+                        "name":{
+                           "type":"string",
+                           "required":true
+                        },
+                        "URL":{
+                           "type":"string"
+                        },
+                        "email":{
+                           "type":"string"
+                        },
+                        "x-identity-metadata":{
+                           "type":"object",
+                           "id":"id-93354"
+                        }
+                     }
+                  }
                },
-               "license":{
-                  "type":"string"
-               },
-               "tags":{
-                  "type":"array",
+               "licenses":{
+                  "tpye":"array",
                   "items":{
                      "type":"string"
                   }
                },
-               "thumbnailURL":{
-                  "type":"string"
+               "thumbnailURLs":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"string"
+                  }
                },
                "description":{
                   "type":"string"
+               },
+               "created":{
+                  "type":"string"
+               },
+               "updated":{
+                  "type":"string"
+               },
+               "submitted":{
+                  "type":"string"
+               },
+               "submitter":{
+                  "type":"object",
+                  "properties":{
+                     "name":{
+                        "type":"string",
+                        "required":true
+                     },
+                     "URL":{
+                        "type":"string"
+                     },
+                     "email":{
+                        "type":"string"
+                     },
+                     "x-identity-metadata":{
+                        "$ref":"id-93354"
+                     }
+                  }
+               },
+               "subject":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"string"
+                  }
+               },
+               "media":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"string"
+                  }
+               },
+               "categories":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"string"
+                  }
+               },
+               "tags":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"string"
+                  }
+               },
+               "relationships":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"object",
+                     "properties":{
+                        "type":{
+                           "type":"string"
+                        },
+                        "URL":{
+                           "type":"string"
+                        },
+                        "x-relationship-metadata":{
+                           "$ref":"id-93354"
+                        }
+                     }
+                  }
+               },
+               "billOfMaterials":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"object",
+                     "properties":{
+                        "partNumber":{
+                           "type":"string"
+                        },
+                        "description":{
+                           "type":"string"
+                        },
+                        "URL":{
+                           "type":"string"
+                        },
+                        "unit":{
+                           "type":"string"
+                        },
+                        "quantity":{
+                           "type":"number"
+                        },
+                        "x-bom-metadata":{
+                           "$ref":"id-93354"
+                        }
+                     }
+                  }
+               },
+               "instructions":{
+                  "tpye":"array",
+                  "items":{
+                     "type":"object",
+                     "properties":{
+                        "step":{
+                           "type":"number"
+                        },
+                        "text":{
+                           "type":"string"
+                        },
+                        "imageURLs":{
+                           "tpye":"array",
+                           "items":{
+                              "type":"string"
+                           }
+                        },
+                        "x-instruction-metadata":{
+                           "$ref":"id-93354"
+                        }
+                     }
+                  }
+               },
+               "x-thing-metadata":{
+                  "$ref":"id-93354"
                }
             }
          },
          "required":true
       },
       "trackers":{
-         "type":"array",
+         "tpye":"array",
          "items":{
             "type":"object",
             "properties":{

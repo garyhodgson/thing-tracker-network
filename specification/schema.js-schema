@@ -1,18 +1,64 @@
 schema({
-  "things" : Array.of(
-      {
-          "title": String,
-          "URL": String,
-          "*author": String,
-          "*license": String,
-          "*tags": Array.of(String),
-          "*thumbnailURL": String,
-          "*description": String
-      }
-  ),
-  "*trackers" : Array.of(
-      {
-          "URL": String
-      }
-  )
+
+  "*version": Number,
+
+  "things" : Array.of({
+
+    "UUID": String,
+    "title": String,
+    "URL": String,
+
+    "*authors": Array.of({
+      "name": String,
+      "*URL": String,
+      "*email": String,
+      "*x-identity-metadata": Object
+    }),
+    "*licenses": Array.of(String),
+    "*thumbnailURLs": Array.of(String),
+    "*description": String,
+
+    "*created": String,
+    "*updated": String,
+    "*submitted": String,
+    "*submitter": {
+      "name": String,
+      "*URL": String,
+      "*email": String,
+      "*x-identity-metadata": Object
+    },
+
+    "*subject": Array.of(String),
+    "*media": Array.of(String),
+    "*categories": Array.of(String),
+    "*tags": Array.of(String),
+
+    "*relationships": Array.of({
+      "*type": String,
+      "*URL": String,
+      "*x-relationship-metadata": Object
+    }),
+
+    "*billOfMaterials": Array.of({
+      "*partNumber": String,
+      "*description": String,
+      "*URL": String,
+      "*unit": String,
+      "*quantity": Number,
+      "*x-bom-metadata": Object
+    }),
+
+    "*instructions": Array.of({
+      "*step": Number,
+      "*text": String,
+      "*imageURLs": Array.of(String),
+      "*x-instruction-metadata": Object
+    }),
+
+    "*x-thing-metadata": Object
+  }),
+
+  "*trackers" : Array.of({
+    "URL": String
+  })
 })
