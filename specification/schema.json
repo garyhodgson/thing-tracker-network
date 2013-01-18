@@ -5,12 +5,13 @@
          "type":"number"
       },
       "things":{
-         "tpye":"array",
+         "type":"array",
          "items":{
             "type":"object",
             "properties":{
                "UUID":{
                   "type":"string",
+                  "pattern":"[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}",
                   "required":true
                },
                "title":{
@@ -22,7 +23,7 @@
                   "required":true
                },
                "authors":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"object",
                      "properties":{
@@ -38,19 +39,19 @@
                         },
                         "x-identity-metadata":{
                            "type":"object",
-                           "id":"id-93354"
+                           "id":"id-43073"
                         }
                      }
                   }
                },
                "licenses":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"string"
                   }
                },
                "thumbnailURLs":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"string"
                   }
@@ -59,13 +60,16 @@
                   "type":"string"
                },
                "created":{
-                  "type":"string"
+                  "type":"string",
+                  "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+Z$"
                },
                "updated":{
-                  "type":"string"
+                  "type":"string",
+                  "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+Z$"
                },
                "submitted":{
-                  "type":"string"
+                  "type":"string",
+                  "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+Z$"
                },
                "submitter":{
                   "type":"object",
@@ -81,36 +85,36 @@
                         "type":"string"
                      },
                      "x-identity-metadata":{
-                        "$ref":"id-93354"
+                        "$ref":"id-43073"
                      }
                   }
                },
                "subject":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"string"
                   }
                },
                "media":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"string"
                   }
                },
                "categories":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"string"
                   }
                },
                "tags":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"string"
                   }
                },
                "relationships":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"object",
                      "properties":{
@@ -121,13 +125,13 @@
                            "type":"string"
                         },
                         "x-relationship-metadata":{
-                           "$ref":"id-93354"
+                           "$ref":"id-43073"
                         }
                      }
                   }
                },
                "billOfMaterials":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"object",
                      "properties":{
@@ -147,13 +151,13 @@
                            "type":"number"
                         },
                         "x-bom-metadata":{
-                           "$ref":"id-93354"
+                           "$ref":"id-43073"
                         }
                      }
                   }
                },
                "instructions":{
-                  "tpye":"array",
+                  "type":"array",
                   "items":{
                      "type":"object",
                      "properties":{
@@ -164,26 +168,26 @@
                            "type":"string"
                         },
                         "imageURLs":{
-                           "tpye":"array",
+                           "type":"array",
                            "items":{
                               "type":"string"
                            }
                         },
                         "x-instruction-metadata":{
-                           "$ref":"id-93354"
+                           "$ref":"id-43073"
                         }
                      }
                   }
                },
                "x-thing-metadata":{
-                  "$ref":"id-93354"
+                  "$ref":"id-43073"
                }
             }
          },
          "required":true
       },
       "trackers":{
-         "tpye":"array",
+         "type":"array",
          "items":{
             "type":"object",
             "properties":{

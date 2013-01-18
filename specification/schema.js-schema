@@ -4,7 +4,7 @@ schema({
 
   "things" : Array.of({
 
-    "UUID": String,
+    "UUID": /[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}/,
     "title": String,
     "URL": String,
 
@@ -18,9 +18,9 @@ schema({
     "*thumbnailURLs": Array.of(String),
     "*description": String,
 
-    "*created": String,
-    "*updated": String,
-    "*submitted": String,
+    "*created": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+Z$/,
+    "*updated": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+Z$/,
+    "*submitted": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+Z$/,
     "*submitter": {
       "name": String,
       "*URL": String,
