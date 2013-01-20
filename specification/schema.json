@@ -39,7 +39,7 @@
                         },
                         "x-identity-metadata":{
                            "type":"object",
-                           "id":"id-43073"
+                           "id":"id-75514"
                         }
                      }
                   }
@@ -85,7 +85,7 @@
                         "type":"string"
                      },
                      "x-identity-metadata":{
-                        "$ref":"id-43073"
+                        "$ref":"id-75514"
                      }
                   }
                },
@@ -125,7 +125,7 @@
                            "type":"string"
                         },
                         "x-relationship-metadata":{
-                           "$ref":"id-43073"
+                           "$ref":"id-75514"
                         }
                      }
                   }
@@ -141,6 +141,10 @@
                         "description":{
                            "type":"string"
                         },
+                        "type":{
+                           "type":"string",
+                           "pattern":"\\bsource\\b|\\bderivative\\b|\\bbom\\b|\\bimage\\b|\\bthing\\b"
+                        },
                         "URL":{
                            "type":"string"
                         },
@@ -150,8 +154,11 @@
                         "quantity":{
                            "type":"number"
                         },
+                        "thumbnailURL":{
+                           "type":"string"
+                        },
                         "x-bom-metadata":{
-                           "$ref":"id-43073"
+                           "$ref":"id-75514"
                         }
                      }
                   }
@@ -174,13 +181,13 @@
                            }
                         },
                         "x-instruction-metadata":{
-                           "$ref":"id-43073"
+                           "$ref":"id-75514"
                         }
                      }
                   }
                },
                "x-thing-metadata":{
-                  "$ref":"id-43073"
+                  "$ref":"id-75514"
                }
             }
          },

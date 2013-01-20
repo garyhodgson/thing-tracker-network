@@ -42,9 +42,11 @@ schema({
     "*billOfMaterials": Array.of({
       "*partNumber": String,
       "*description": String,
+      "*type": /\bsource\b|\bderivative\b|\bbom\b|\bimage\b|\bthing\b/,
       "*URL": String,
       "*unit": String,
       "*quantity": Number,
+      "*thumbnailURL": String,
       "*x-bom-metadata": Object
     }),
 

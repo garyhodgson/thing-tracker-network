@@ -76,8 +76,10 @@
                "partNumber":"1",
                "description":"Frame",
                "URL":"https://github.com/garyhodgson/githubiverse-tst/raw/master/stl/MechanicalMovement27_frame.stl",
+               "type": "derivative",
                "unit":"EA",
                "quantity":1,
+               "thumbnailURL": "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/frame.png",
                "x-bom-metadata":{
                   "note":"This part has not yet been tested."
                }
@@ -86,20 +88,25 @@
                "partNumber":"2",
                "description":"Small Wheel",
                "URL":"https://raw.github.com/garyhodgson/githubiverse-tst/master/stl/MechanicalMovement27_small_wheel.stl",
+               "type": "derivative",
                "unit":"EA",
-               "quantity":1
+               "quantity":1,
+               "thumbnailURL": "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/small_wheel.png"
             },
             {
                "partNumber":"3",
                "description":"Wheel",
                "URL":"https://raw.github.com/garyhodgson/githubiverse-tst/master/stl/MechanicalMovement27_wheel.stl",
+               "type": "derivative",
                "unit":"EA",
-               "quantity":1
+               "quantity":1,
+               "thumbnailURL": "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/wheel.png"
             },
             {
                "partNumber":"4",
                "description":"OpenSCAD Source Code",
-               "URL":"https://raw.github.com/garyhodgson/githubiverse-tst/master/src/MechanicalMovement27.scad"
+               "URL":"https://raw.github.com/garyhodgson/githubiverse-tst/master/src/MechanicalMovement27.scad",
+               "type": "source"
             },
             {
                "partNumber":"5",
