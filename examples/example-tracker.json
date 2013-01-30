@@ -52,14 +52,20 @@
             "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg"
          ],
          "description":"An implementation of movement #27 from \"501 Mechanical Movements\" by Henry T. Brown.\\n\\nThis is still a work in progress.",
+
          "created":"2012-09-03T14:50:20.000Z",
          "updated":"2012-09-14T21:50:52.000Z",
-         "submitted":"2013-01-17T20:13:30.362Z",
-         "submitter":{
-            "name":"Gary Hodgson",
-            "url":"http://garyhodgson.com/reprap",
-            "email":"contact@garyhodgson.com"
+
+         "metadata": {
+            "created": "2013-01-17T20:13:30.362Z",
+            "updated": "2013-01-17T20:13:30.362Z",
+            "submitter": {
+               "name":"Gary Hodgson",
+               "url":"http://garyhodgson.com/reprap",
+               "email":"contact@garyhodgson.com"
+            }
          },
+
          "subject":[
             "mechanism"
          ],
@@ -172,7 +178,7 @@
    "trackers":[
       {
          "url":"http://reprap.development-tracker.info/thingtracker",
-         "updated":"2013-01-22T23:00:00+01:00",
+         "accessed":"2013-01-22T23:00:00+01:00",
          "status":"ok"
       }
    ],
