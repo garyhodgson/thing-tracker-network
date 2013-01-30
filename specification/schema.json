@@ -40,7 +40,7 @@
                },
                "x-identity-metadata":{
                   "type":"object",
-                  "id":"id-24081"
+                  "id":"id-42300"
                }
             }
          }
@@ -79,7 +79,7 @@
                            "type":"string"
                         },
                         "x-identity-metadata":{
-                           "$ref":"id-24081"
+                           "$ref":"id-42300"
                         }
                      }
                   }
@@ -132,7 +132,7 @@
                               "type":"string"
                            },
                            "x-identity-metadata":{
-                              "$ref":"id-24081"
+                              "$ref":"id-42300"
                            }
                         }
                      }
@@ -174,7 +174,7 @@
                            "type":"string"
                         },
                         "x-relationship-metadata":{
-                           "$ref":"id-24081"
+                           "$ref":"id-42300"
                         }
                      }
                   }
@@ -210,7 +210,7 @@
                            "type":"string"
                         },
                         "x-bom-metadata":{
-                           "$ref":"id-24081"
+                           "$ref":"id-42300"
                         }
                      }
                   }
@@ -233,37 +233,17 @@
                            }
                         },
                         "x-instruction-metadata":{
-                           "$ref":"id-24081"
+                           "$ref":"id-42300"
                         }
                      }
                   }
                },
                "x-thing-metadata":{
-                  "$ref":"id-24081"
+                  "$ref":"id-42300"
                }
             }
          },
          "required":true
-      },
-      "trackers":{
-         "type":"array",
-         "items":{
-            "type":"object",
-            "properties":{
-               "url":{
-                  "type":"string",
-                  "required":true
-               },
-               "accessed":{
-                  "type":"string",
-                  "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
-               },
-               "status":{
-                  "type":"string",
-                  "pattern":"\\bunknown\\b|\\bok\\b|\\berror\\b"
-               }
-            }
-         }
       },
       "things-cache":{
          "type":"object",
@@ -280,12 +260,56 @@
                "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
             },
             "x-things-cache-metadata":{
-               "$ref":"id-24081"
+               "$ref":"id-42300"
             }
          }
       },
       "x-tracker-metadata":{
-         "$ref":"id-24081"
+         "$ref":"id-42300"
+      },
+      "trackers":{
+         "type":"array",
+         "items":{
+            "type":"object",
+            "properties":{
+               "uuid":{
+                  "type":"string",
+                  "pattern":"[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}",
+                  "required":true
+               },
+               "url":{
+                  "type":"string",
+                  "required":true
+               },
+               "accessed":{
+                  "type":"string",
+                  "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
+               },
+               "status":{
+                  "type":"string",
+                  "pattern":"\\bunknown\\b|\\bok\\b|\\berror\\b"
+               },
+               "things-cache":{
+                  "type":"object",
+                  "properties":{
+                     "url":{
+                        "type":"string",
+                        "required":true
+                     },
+                     "things-count":{
+                        "type":"number"
+                     },
+                     "updated":{
+                        "type":"string",
+                        "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
+                     },
+                     "x-things-cache-metadata":{
+                        "$ref":"id-42300"
+                     }
+                  }
+               }
+            }
+         }
       }
    }
 }

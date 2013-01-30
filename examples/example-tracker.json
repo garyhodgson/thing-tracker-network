@@ -5,12 +5,14 @@
    "updated":"2013-01-22T23:45:00+01:00",
    "things-count":2,
    "trackers-count":1,
-   "trackers-traversal-depth":0,
-   "maintainers":[{
-      "name":"Gary Hodgson",
-      "url":"http://garyhodgson.com/reprap",
-      "email":"contact@garyhodgson.com"
-   }],
+   "trackers-traversal-depth":1,
+   "maintainers":[
+      {
+         "name":"Gary Hodgson",
+         "url":"http://garyhodgson.com/reprap",
+         "email":"contact@garyhodgson.com"
+      }
+   ],
    "things":[
       {
          "uuid":"cdebf011-e999-4dc5-b4c2-c4163f5584a0",
@@ -52,20 +54,17 @@
             "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg"
          ],
          "description":"An implementation of movement #27 from \"501 Mechanical Movements\" by Henry T. Brown.\\n\\nThis is still a work in progress.",
-
          "created":"2012-09-03T14:50:20.000Z",
          "updated":"2012-09-14T21:50:52.000Z",
-
-         "metadata": {
-            "created": "2013-01-17T20:13:30.362Z",
-            "updated": "2013-01-17T20:13:30.362Z",
-            "submitter": {
+         "metadata":{
+            "created":"2013-01-17T20:13:30.362Z",
+            "updated":"2013-01-17T20:13:30.362Z",
+            "submitter":{
                "name":"Gary Hodgson",
                "url":"http://garyhodgson.com/reprap",
                "email":"contact@garyhodgson.com"
             }
          },
-
          "subject":[
             "mechanism"
          ],
@@ -175,17 +174,22 @@
          ]
       }
    ],
-   "trackers":[
-      {
-         "url":"http://reprap.development-tracker.info/thingtracker",
-         "accessed":"2013-01-22T23:00:00+01:00",
-         "status":"ok"
-      }
-   ],
-      "things-cache":{
-      "url":"http://garyhodgson.com/thingscache",
+   "things-cache":{
+      "url":"http://garyhodgson.com/thingtracker/thingscache",
       "things-count":302,
       "updated":"2013-01-22T23:00:00+01:00"
-   }
-
+   },
+   "trackers":[
+      {
+         "uuid":"3d715220-ae50-44d1-b4fd-1eabdc71c00a",
+         "url":"http://reprap.development-tracker.info/thingtracker",
+         "accessed":"2013-01-22T23:00:00+01:00",
+         "status":"ok",
+         "things-cache":{
+            "url":"http://garyhodgson.com/thingtracker/tracker/3d715220-ae50-44d1-b4fd-1eabdc71c00a/thingscache",
+            "things-count":300,
+            "updated":"2013-01-22T23:02:00+01:00"
+         }
+      }
+   ]
 }
