@@ -1,4 +1,4 @@
-/*
+ï»¿/**
  * Make a torrent file that contains a thing.
  * 
  * This program follows up on the 
@@ -39,17 +39,17 @@
  * you have a "thing" and can proceed to make a "distributed thing" out of it.
  * 
  * You will need a way to create a .torrent file, which means a capable torrent client.
- * I suggest <a href="http://www.utorrent.com/">µTorrent</a>.
+ * I suggest <a href="http://www.utorrent.com/">ÂµTorrent</a>.
  * Do whatever is necessary with that tool to generate a .torrent file.
  * I'll describe what I did.
- * Push the nice friendly <a href="http://www.utorrent.com/">Get µTorrent</a> button.
+ * Push the nice friendly <a href="http://www.utorrent.com/">Get ÂµTorrent</a> button.
  * Click the <a href="http://www.utorrent.com/downloads/complete/os/win">Free Download</a>
  * fine print link above the comparison chart.
  * Save the uTorrent.exe file.
- * Run the uTorrent.exe file by double clicking on it. This installs the µTorrent client
+ * Run the uTorrent.exe file by double clicking on it. This installs the ÂµTorrent client
  * (for me it was Version 3.3 Build 29342). I installed it in directory
  * C:\Program Files (x86)\uTorrent and unchecked every option it offered except
- * "Add an exception for µTorrent in Windows Firewall" but you can choose other options.
+ * "Add an exception for ÂµTorrent in Windows Firewall" but you can choose other options.
  * The program starts up, or start it up by clicking on the <em>installed</em> 
  * uTorrent.exe (this one: C:\Program Files (x86)\uTorrent\uTorrent.exe).
  * Create a new torrent. From the File menu, choose Create New Torrent..., or hot-key CTRL-N.
@@ -65,14 +65,48 @@
  * <a href="http://www.tools4noobs.com/online_tools/torrent_decode/">Tools4noobs Torrent decode</a>.
  * 
  * The two pieces - the .json and the .torrent can now be merged by running this program.
- * The command line is:
+ * This program requires <a href="http://nodejs.org/">node.js</a>, so you need to install it first.
+ * After that, you should have commands "node" and "npm" (the node package manager) available.
+ *
+ * The program relies on two packages, namely
+ * <a href="https://github.com/themasch/node-bencode">bencode</a>
+ * and
+ * <a href="https://github.com/pvorb/node-sha1">sha1</a>.
+ * You can install these locally (i.e. in the directory you're working in -
+ * the same one this file is in) with these commands:
  * 
- * node make_torrent.js thing.json thing.torrent output.torrent
- */
-
-// install bencode and sha1
-// npm install bencode
-// npm install sha1
+       npm install bencode
+       npm install sha1
+ *
+ * Now you can make a "thing". The command line is:
+ * 
+       node make_torrent.js thing.json thing.torrent output.torrent
+ *
+ * where:
+ * <ul>
+ * <li>thing.json is the metadata file you created from the template</li>
+ * <li>thing.torrent is the original torrent file created by your BitTorrent client</li>
+ * <li>output.torrent is the file you want to create</li>
+ * </ul>
+ * 
+ * Besides creating the output file, which is a modified torrent file containing
+ * the thing metadata, the program will also display a magnet link.
+ * 
+ * To seed your torrent, you need to put the file(s) that it comprises and
+ * the generated torrent file in the directory configured for torrent seeding
+ * (usually the same as the one for downloads), and then add the torrent
+ * as an initial seed in your client. For the ÂµTorrent client this found
+ * of the File menu, Add Torrent... or CTRL-O. where you can select the generated
+ * torrent file. This is somewhat confusing because it requires the directory
+ * to save it - but apparently doesn't mind if this is the same directory.
+ * 
+ * Then you can send the magnet link to your geeky friends who can paste it into their
+ * BitTorrent client and torrent your thing. For the ÂµTorrent client, that latter
+ * step is found on the File menu, Add Torrent from URL... or CTRL-U, where you can paste
+ * the magnet link and begin the torrent process.
+ * 
+ * @module make_torrent
+ **/
 
 var bencode = require ('bencode');
 var fs = require ('fs');
@@ -111,6 +145,17 @@ else
 {
     var data = JSON.parse (fs.readFileSync (thing));
     //console.log (JSON.stringify (data, null, 4));
+    var title = data['title'];
+    if (null == title)
+    {
+	var n = thing.lastIndexOf (".");
+	if (-1 == n)
+	    title = thing;
+	else
+	    title = thing.substring (0, n);
+    }
+    title = title.replace (/\&/g,"and");
+    title = title.replace (/ /g, "%20");
 
     var file = fs.readFileSync (filename);
     var torrent = bencode.decode (file);
@@ -125,6 +170,6 @@ else
     var primary_key = sha1 (bencode.encode (info).toByteArray ());
 
     // spew it out as a magnet link URI
-    console.log ("magnet:?xt=urn:btih:" + primary_key);
+    console.log ("magnet:?xt=urn:btih:" + primary_key + "&dn=" + title);
 }
 

@@ -12,6 +12,10 @@ The schema is given in two formats: [js-schema](git://github.com/molnarg/js-sche
 ### Examples
 Several example tracker documents are given to give an idea of how the specification can be used.
 
+### Thing Maker
+A simplistic program to create a thing that can be distributed via the
+[BitTorrent](https://en.wikipedia.org/wiki/Bittorrent) protocol can be found
+in the [thingmaker directory](thingmaker/docs/index.html). 
 
 ## Further Information
 * [Thingtracker.net](http://thingtracker.net)
