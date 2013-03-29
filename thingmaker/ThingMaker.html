@@ -11,6 +11,9 @@
 </head>
 <body>
 <style>
+  #read_button {
+     margin-left: 25px;
+  }
   #byte_content {
     margin: 5px 0;
     max-height: 500px;
@@ -19,14 +22,8 @@
   }
   #byte_range { margin-top: 5px; }
 </style>
-
-<input type="file" id="files" name="file" /> Read bytes: 
-<span class="readBytesButtons">
-  <button data-startbyte="0" data-endbyte="4">1-5</button>
-  <button data-startbyte="5" data-endbyte="14">6-15</button>
-  <button data-startbyte="6" data-endbyte="7">7-8</button>
-  <button>entire file</button>
-</span>
+<input id="files" type="file" name="file" />
+<button id="read_button">Read File</button>
 <div id="byte_range"></div>
 <div id="byte_content"></div>
 
@@ -61,7 +58,7 @@ function readBlob (opt_startByte, opt_stopByte)
     var blob = file.slice (start, stop + 1);
     reader.readAsArrayBuffer (blob);
 }
-  document.querySelector('.readBytesButtons').addEventListener('click', function(evt) {
+  document.querySelector('#read_button').addEventListener('click', function(evt) {
     if (evt.target.tagName.toLowerCase() == 'button') {
       var startByte = evt.target.getAttribute('data-startbyte');
       var endByte = evt.target.getAttribute('data-endbyte');
