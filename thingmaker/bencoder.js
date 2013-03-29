@@ -199,3 +199,122 @@ decode.stringize = function (buffer)
     return (ret);
 };
 
+/**
+ * Encodes data in bencode.
+  * @param {Array|String|ArrayBuffer|Object|Number} data
+ * @return {String}
+ */
+function encode (data)
+{
+    var view;
+    var limit;
+    var i;
+    var ret;
+
+    ret = null;
+
+    if (data instanceof ArrayBuffer)
+    {
+        ret = data.byteLength.toString () + ':';
+        view = new Uint8Array (data);
+        limit = data.byteLength;
+        for (i = 0; i < limit; i++)
+            ret += String.fromCharCode (view[i]);
+    }
+    else
+        switch (typeof data)
+        {
+            case 'string':
+                ret = encode.string (data);
+                break;
+            case 'number':
+                ret = encode.number (data);
+                break;
+            case 'object':
+                ret = data.constructor === Array ? encode.list (data) : encode.dict (data);
+                break;
+        }
+    
+    return (ret);
+}
+
+encode.string = function (data)
+{
+    var str;
+    var prefix;
+
+    // create a UTF-8 encoded string
+    str = encode.encode_utf8 (data);
+    prefix = str.length.toString () + ':';
+    ret = prefix + str;
+
+    return (ret);
+};
+
+encode.number = function (data)
+{
+    var str;
+    var ret;
+
+    str = data.toString ();
+    ret = "i" + str + "e";
+
+    return (ret);
+};
+
+encode.dict = function (data)
+{
+    var keys;
+    var der;
+    var limit;
+    var i;
+    var k;
+    var ret;
+
+    keys = [];
+    for (var d in data)
+        keys.push (d);
+    keys = keys.sort ();
+    der = [];
+    der.push ("d");
+    limit = keys.length;
+    for (i = 0; i < limit; i++)
+    {
+        k = keys[i];
+        der.push (encode (k));
+        der.push (encode (data[k]));
+    }
+    der.push ("e");
+    ret = der.join ("");
+
+    return (ret);
+};
+
+encode.list = function (data)
+{
+    var list;
+    var limit;
+    var i;
+    var ret;
+
+    list = [];
+    list.push ("l");
+    limit = data.length;
+    for (i = 0; i < limit; i++)
+        list.push (encode (data[i]));
+    list.push ("e");
+    ret = list.join ("");
+
+    return (ret);};
+
+/**
+ * From:
+ * http://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
+ * @param {String} str
+ * @returns {String} UTF-8 encoded string
+ */
+encode.encode_utf8 = function (str)
+{
+    return (unescape (encodeURIComponent (str)));
+};
+

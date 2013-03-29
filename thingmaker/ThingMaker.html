@@ -20,12 +20,19 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
+  #bencode_content {
+    margin: 5px 0;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
   #byte_range { margin-top: 5px; }
 </style>
 <input id="files" type="file" name="file" />
 <button id="read_button">Read File</button>
 <div id="byte_range"></div>
 <div id="byte_content"></div>
+<div id="bencode_content"></div>
 
 <script>
 function readBlob (opt_startByte, opt_stopByte)
@@ -52,6 +59,8 @@ function readBlob (opt_startByte, opt_stopByte)
                     ' byte file' ].join ('');
             var torrent = decode (evt.target.result);
             document.getElementById ('byte_content').innerHTML = "<pre><code>" + JSON.stringify (torrent, null, 4) + "</code></pre>";
+            var output = encode (torrent);
+            document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream," + output + "' download='output.torrent'>Torrent File</a>";
         }
     };
 
