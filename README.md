@@ -15,7 +15,9 @@ Several example tracker documents are given to give an idea of how the specifica
 ### Thing Maker
 A simplistic program to create a thing that can be distributed via the
 [BitTorrent](https://en.wikipedia.org/wiki/Bittorrent) protocol can be found
-in the [thingmaker directory](http://htmlpreview.github.com/?https://github.com/derrickoswald/thing-tracker-network/blob/master/thingmaker/docs/modules/make_torrent.html). 
+in the [thingmaker directory](http://htmlpreview.github.com/?https://github.com/derrickoswald/thing-tracker-network/blob/master/thingmaker/docs/modules/make_torrent.html).
+A simple Javascript program to read a torrent file (which could be created from the above) can be found on the 
+[ThingMaker Page](http://htmlpreview.github.com/?https://github.com/derrickoswald/thing-tracker-network/blob/master/thingmaker/ThingMaker.html).
 
 ## Further Information
 * [Thingtracker.net](http://thingtracker.net)
