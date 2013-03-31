@@ -57,9 +57,13 @@ function readBlob (opt_startByte, opt_stopByte)
         { // DONE == 2
             document.getElementById ('byte_range').textContent = [ 'Read bytes: ', start + 1, ' - ', stop + 1, ' of ', file.size,
                     ' byte file' ].join ('');
-            var torrent = decode (evt.target.result, true);
-            document.getElementById ('byte_content').innerHTML = "<pre><code>" + JSON.stringify (torrent, null, 4) + "</code></pre>";
-            var output = encode (torrent);
+            var binary_torrent = decode (evt.target.result, true);
+            // we need to use the binary version of the "pieces" element so that it
+            // doesn't get converted to UTF-8 as required by the bencoding specification
+            var string_torrent = decode (evt.target.result, false);
+            string_torrent["info"]["pieces"] = binary_torrent ["info"]["pieces"];
+            document.getElementById ('byte_content').innerHTML = "<pre><code>" + JSON.stringify (string_torrent, null, 4) + "</code></pre>";
+            var output = encode (string_torrent);
             document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64," + btoa (output) + "' download='output.torrent'>Torrent File</a>";
         }
     };
