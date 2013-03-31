@@ -8,6 +8,7 @@
 	<meta name="author" content="Derrick Oswald" />
 	<!-- Date: 2013-03-27 -->
     <script type="text/javascript" src="./bencoder.js"></script>
+    <script type="text/javascript" src="./sha1.js"></script>
 </head>
 <body>
 <style>
@@ -27,12 +28,14 @@
     overflow-x: hidden;
   }
   #byte_range { margin-top: 5px; }
+  #magnet_icon { padding-right: 10px; }
 </style>
 <input id="files" type="file" name="file" />
 <button id="read_button">Read File</button>
 <div id="byte_range"></div>
 <div id="byte_content"></div>
 <div id="bencode_content"></div>
+<div id="magnet"></div>
 
 <script>
 function readBlob (opt_startByte, opt_stopByte)
@@ -61,10 +64,32 @@ function readBlob (opt_startByte, opt_stopByte)
             // we need to use the binary version of the "pieces" element so that it
             // doesn't get converted to UTF-8 as required by the bencoding specification
             var string_torrent = decode (evt.target.result, false);
+
             string_torrent["info"]["pieces"] = binary_torrent ["info"]["pieces"];
             document.getElementById ('byte_content').innerHTML = "<pre><code>" + JSON.stringify (string_torrent, null, 4) + "</code></pre>";
             var output = encode (string_torrent);
             document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64," + btoa (output) + "' download='output.torrent'>Torrent File</a>";
+
+            // generate the 160 bit (40 hex characters) info primary key
+            var info = string_torrent['info'];
+            var primary_key = sha1 (encode (info));
+
+            // spew it out as a magnet link URI
+            var thing = file.name; // default name is the file name
+            var title = string_torrent["info"]["pieces"]['title'];
+            if (null == title)
+            {
+                var n = thing.lastIndexOf (".");
+                if (-1 == n)
+                    title = thing;
+                else
+                    title = thing.substring (0, n);
+            }
+            title = title.replace (/\&/g,"and");
+            title = title.replace (/ /g, "%20");
+            document.getElementById ('magnet').innerHTML = "<a href=\"" +
+                "magnet:?xt=urn:btih:" + primary_key + "&dn=" + title + "\"  title=\"Download this torrent using magnet\">" +
+                "<img id=\"magnet_icon\" src=\"images/magnet.png\">Magnet" + "</a>";
         }
     };
 

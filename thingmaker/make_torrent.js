@@ -117,7 +117,7 @@ var sha1 = require ('sha1');
 Buffer.prototype.toByteArray = function ()
 {
     return (Array.prototype.slice.call (this, 0));
-}
+};
 
 // get the name of the JSON "thing" file
 var thing = "thing.json";
