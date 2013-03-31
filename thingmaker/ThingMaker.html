@@ -57,10 +57,10 @@ function readBlob (opt_startByte, opt_stopByte)
         { // DONE == 2
             document.getElementById ('byte_range').textContent = [ 'Read bytes: ', start + 1, ' - ', stop + 1, ' of ', file.size,
                     ' byte file' ].join ('');
-            var torrent = decode (evt.target.result);
+            var torrent = decode (evt.target.result, true);
             document.getElementById ('byte_content').innerHTML = "<pre><code>" + JSON.stringify (torrent, null, 4) + "</code></pre>";
             var output = encode (torrent);
-            document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream," + output + "' download='output.torrent'>Torrent File</a>";
+            document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64," + btoa (output) + "' download='output.torrent'>Torrent File</a>";
         }
     };
 

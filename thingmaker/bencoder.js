@@ -32,16 +32,14 @@ function decode (buffer, raw)
         throw "not an ArrayBuffer";
 
     decode.position = 0;
-    decode.raw = raw || null;
     decode.buffer = buffer;
     decode.size = buffer.byteLength;
     decode.data = new DataView (buffer);
 
-    return (decode.next ());
+    return (decode.next (raw));
 }
 
 decode.position = 0;
-decode.raw = null;
 decode.buffer = null;
 decode.size = 0;
 decode.data = null;
@@ -49,30 +47,30 @@ decode.encoding_table = [];
 for (var i = 0; i < 256; i++)
     decode.encoding_table.push (encodeURIComponent (String.fromCharCode (i)));
 
-decode.next = function ()
+decode.next = function (raw)
 {
     var ret;
 
     switch (decode.data.getUint8 (decode.position))
     {
         case 0x64: // 'd'
-            ret = decode.dictionary ();
+            ret = decode.dictionary (raw);
             break;
         case 0x6C: // 'l'
-            ret = decode.list ();
+            ret = decode.list (raw);
             break;
         case 0x69: // 'i'
-            ret = decode.integer ();
+            ret = decode.integer (raw);
             break;
         default:
-            ret = decode.bytes ();
+            ret = decode.bytes (raw);
             break;
     }
     
     return (ret);
 };
 
-decode.dictionary = function ()
+decode.dictionary = function (raw)
 {
     var ret;
 
@@ -80,13 +78,13 @@ decode.dictionary = function ()
 
     decode.position++; // past the 'd'
     while (decode.data.getUint8 (decode.position) !== 0x65) // 'e'
-        ret[decode.next ()] = decode.next ();
+        ret[decode.next (false)] = decode.next (raw); // keys must be strings 
     decode.position++; // past the 'e'
 
     return (ret);
 };
 
-decode.list = function ()
+decode.list = function (raw)
 {
     var ret;
 
@@ -94,14 +92,14 @@ decode.list = function ()
 
     decode.position++; // past the 'l'
     while (decode.data.getUint8 (decode.position) !== 0x65) // 'e'
-        ret.push (decode.next ());
+        ret.push (decode.next (raw));
     decode.position++; // past the 'e'
 
     return (ret);
 
 };
 
-decode.integer = function ()
+decode.integer = function (raw)
 {
     var i;
     var limit;
@@ -130,7 +128,7 @@ decode.integer = function ()
     return (ret);
 };
 
-decode.bytes = function ()
+decode.bytes = function (raw)
 {
     var i;
     var limit;
@@ -158,7 +156,7 @@ decode.bytes = function ()
         throw "':' not found in string size at offset " + decode.position;
     decode.position = i + length;
     ret = decode.buffer.slice (i, decode.position);
-    if (!decode.raw)
+    if (!raw)
         ret = decode.stringize (ret);
 
     return (ret);
@@ -173,9 +171,10 @@ decode.bytes = function ()
 decode.stringize = function (buffer)
 {
     var data;
-    var fragments;
+    var bytes;
     var i;
     var limit;
+    var c;
     var str;
     var ret;
     
@@ -188,20 +187,36 @@ decode.stringize = function (buffer)
     // nope :-( can't do this: var reader = new FileReaderSync ();
     // reference: http://ecma-international.org/ecma-262/5.1/
     data = new DataView (buffer);
-    fragments = [];
+    bytes = [];
     limit = buffer.byteLength;
     // ToDo: check if it's faster to concatenate directly to a string instead of making an array first
     for (i = 0; i < limit; i++)
-        fragments.push (decode.encoding_table [data.getUint8 (i)]);
-    str = fragments.join ('');
+    {
+        c = data.getUint8 (i);
+        bytes.push (decode.encoding_table [c]);
+        ret += HexConverter.dec2hex (c); // comment out for production code
+    }
+    str = bytes.join ('');
+    bytes = ret; // comment out for production code
     ret = decodeURIComponent (str);
-    
+    /* start: comment out for production code */
+    str = "";
+    limit = ret.length;
+    for (i = 0; i < limit; i++)
+    {
+        c = ret.charCodeAt (i);
+        str += HexConverter.dec2hex (c);
+    }
+    if (bytes != str)
+        alert ("oops: converted byte data not correct, raw: " + bytes + " String: " + str);
+    /* end: comment out for production code */
+
     return (ret);
 };
 
 /**
  * Encodes data in bencode.
-  * @param {Array|String|ArrayBuffer|Object|Number} data
+ * @param {Array|String|ArrayBuffer|Object|Number} data
  * @return {String}
  */
 function encode (data)
@@ -234,7 +249,7 @@ function encode (data)
                 ret = data.constructor === Array ? encode.list (data) : encode.dict (data);
                 break;
         }
-    
+
     return (ret);
 }
 
@@ -274,7 +289,7 @@ encode.dict = function (data)
     keys = [];
     for (var d in data)
         keys.push (d);
-    keys = keys.sort ();
+    keys = keys.sort (); // Keys must be strings and appear in sorted order (sorted as raw strings, not alphanumerics).
     der = [];
     der.push ("d");
     limit = keys.length;
@@ -318,3 +333,17 @@ encode.encode_utf8 = function (str)
     return (unescape (encodeURIComponent (str)));
 };
 
+var HexConverter =
+{
+    hexDigits : '0123456789ABCDEF',
+
+    dec2hex : function (dec)
+    {
+        return (this.hexDigits[dec >> 4] + this.hexDigits[dec & 15]);
+    },
+
+    hex2dec : function (hex)
+    {
+        return (parseInt (hex, 16));
+    }
+};
