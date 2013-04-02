@@ -3,107 +3,221 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>test</title>
-	<meta name="author" content="Derrick Oswald" />
-	<!-- Date: 2013-03-27 -->
-    <script type="text/javascript" src="./bencoder.js"></script>
-    <script type="text/javascript" src="./sha1.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>test</title>
+<meta name="author" content="Derrick Oswald" />
+<!-- Date: 2013-03-27 -->
+<script type="text/javascript" src="./bencoder.js"></script>
+<script type="text/javascript" src="./sha1.js"></script>
+<link href="./css/bootstrap/bootstrap.css" rel="stylesheet">
+<link href="./css/thingtracker.css" rel="stylesheet" media="screen" type="text/css">
+<link href="./css/thingmaker.css" rel="stylesheet" media="screen" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="./css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
 </head>
 <body>
-<style>
-  #read_button {
-     margin-left: 25px;
-  }
-  #byte_content {
-    margin: 5px 0;
-    max-height: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  #bencode_content {
-    margin: 5px 0;
-    max-height: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  #byte_range { margin-top: 5px; }
-  #magnet_icon { padding-right: 10px; }
-</style>
-<input id="files" type="file" name="file" />
-<button id="read_button">Read File</button>
-<div id="byte_range"></div>
-<div id="byte_content"></div>
-<div id="bencode_content"></div>
-<div id="magnet"></div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span8">
+                <h1>Thing Maker</h1>
+                <p>
+                    <strong>Create a distributed <em>Thing</em> using the BitTorrent network.
+                    </strong>
+                </p>
+                <div class="row-fluid">
+                <div class="span12">
+                The idea behind the Thing Maker is to use <a href="https://en.wikipedia.org/wiki/Bittorrent">BitTorrent</a>
+                to distribute <a href="http://thingtracker.net/">Thing Tracker things</a>.
+                </div>
+                </div>
+                <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="718.20984"
+                    height="163.22379" id="svg2" version="1.1" inkscape:version="0.48.4 r9939"
+                    sodipodi:docname="Thing Maker.svg">
+                    <defs id="defs4" />
+                    <sodipodi:namedview id="base" pagecolor="#ffffff"
+                        bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0"
+                        inkscape:pageshadow="2" inkscape:zoom="1.4" inkscape:cx="463.61801"
+                        inkscape:cy="30.70252" inkscape:document-units="px"
+                        inkscape:current-layer="layer1" showgrid="false"
+                        inkscape:window-width="1920" inkscape:window-height="1019"
+                        inkscape:window-x="-9" inkscape:window-y="-9"
+                        inkscape:window-maximized="1" fit-margin-top="20" fit-margin-left="20"
+                        fit-margin-right="20" fit-margin-bottom="20" />
+                    <metadata id="metadata7">
+                        <rdf:RDF>
+                            <cc:Work rdf:about="">
+                                <dc:format>image/svg+xml</dc:format>
+                                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                                <dc:title />
+                            </cc:Work>
+                        </rdf:RDF>
+                    </metadata>
+                    <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1"
+                        transform="translate(-32.785713,-142.06697)">
+                        <rect
+                            style="fill:none;stroke:#008080;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                            id="rect2985" width="194.28572" height="120" x="54.285713" y="163.79076"
+                            ry="2.3279335" />
+                        <text xml:space="preserve"
+                            style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Frutiger Next LT W1G;-inkscape-font-specification:Frutiger Next LT W1G"
+                            x="151.55013" y="198.07648" id="text3755" sodipodi:linespacing="125%"><tspan
+                            sodipodi:role="line" id="tspan3757" x="151.55013" y="198.07648"
+                            style="text-align:center;text-anchor:middle">Step 1.</tspan><tspan sodipodi:role="line" x="151.55013"
+                            y="218.07648" id="tspan3761" style="text-align:center;text-anchor:middle">Create or specify a</tspan><tspan
+                            sodipodi:role="line" x="151.55013" y="238.07648" id="tspan3763"
+                            style="text-align:center;text-anchor:middle">torrent file.</tspan></text>
+                        <rect
+                            style="fill:none;stroke:#008080;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                            id="rect2985-1" width="194.28572" height="120" x="293.78125" y="163.79076"
+                            ry="2.3279335" />
+                        <text xml:space="preserve"
+                            style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Frutiger Next LT W1G;-inkscape-font-specification:Frutiger Next LT W1G"
+                            x="390.88214" y="198.07648" id="text3755-7" sodipodi:linespacing="125%"><tspan
+                            sodipodi:role="line" id="tspan3757-4" x="390.88214" y="198.07648"
+                            style="text-align:center;text-anchor:middle">Step 2.</tspan><tspan sodipodi:role="line" x="390.88214"
+                            y="218.07648" id="tspan3763-9" style="text-align:center;text-anchor:middle">Add <tspan style="font-style:italic"
+                            id="tspan3841">Thing</tspan></tspan><tspan sodipodi:role="line" x="390.88214"
+                            y="238.07648" style="text-align:center;text-anchor:middle" id="tspan3797">metadata.</tspan></text>
+                        <rect
+                            style="fill:none;stroke:#008080;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                            id="rect2985-1-4" width="194.28572" height="120" x="533.20984" y="163.56697"
+                            ry="2.3279335" />
+                        <text xml:space="preserve"
+                            style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Frutiger Next LT W1G;-inkscape-font-specification:Frutiger Next LT W1G"
+                            x="630.70862" y="197.85268" id="text3755-7-8" sodipodi:linespacing="125%"><tspan
+                            sodipodi:role="line" x="630.70862" y="197.85268"
+                            style="text-align:center;text-anchor:middle" id="tspan3797-4">Step 3.</tspan><tspan
+                            sodipodi:role="line" x="630.70862" y="217.85268"
+                            style="text-align:center;text-anchor:middle" id="tspan3835">Seed the <tspan
+                            style="font-style:italic" id="tspan3837">Thing</tspan>.</tspan></text>
+                        <g id="g3848">
+                            <path inkscape:connector-curvature="0" id="path3843"
+                                d="m 248.78371,221.00504 36.94581,0"
+                                style="fill:none;stroke:#008080;stroke-width:2.69698095;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+                            <path inkscape:transform-center-y="-0.0027414005"
+                                inkscape:transform-center-x="-0.73726806"
+                                transform="matrix(0.16847952,0.98570515,-0.98570515,0.16847952,311.31424,-23.603224)"
+                                d="m 239.40616,67.511834 -2.52477,-0.436357 -2.52478,-0.436357 1.64028,-1.96834 1.64029,-1.96834 0.88449,2.404697 z"
+                                inkscape:randomized="0" inkscape:rounded="0" inkscape:flatsided="false"
+                                sodipodi:arg2="1.7419358" sodipodi:arg1="0.69473828" sodipodi:r2="1.4792894"
+                                sodipodi:r1="2.9585788" sodipodi:cy="65.617798" sodipodi:cx="237.13332"
+                                sodipodi:sides="3" id="path3845"
+                                style="fill:none;stroke:#008080;stroke-width:3;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                                sodipodi:type="star" />
+                        </g>
+                        <g transform="translate(240.33126,0)" id="g3848-5">
+                            <path inkscape:connector-curvature="0" id="path3843-5"
+                                d="m 248.78371,221.00504 36.94581,0"
+                                style="fill:none;stroke:#008080;stroke-width:2.69698095;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+                            <path inkscape:transform-center-y="-0.0027414005"
+                                inkscape:transform-center-x="-0.73726806"
+                                transform="matrix(0.16847952,0.98570515,-0.98570515,0.16847952,311.31424,-23.603224)"
+                                d="m 239.40616,67.511834 -2.52477,-0.436357 -2.52478,-0.436357 1.64028,-1.96834 1.64029,-1.96834 0.88449,2.404697 z"
+                                inkscape:randomized="0" inkscape:rounded="0" inkscape:flatsided="false"
+                                sodipodi:arg2="1.7419358" sodipodi:arg1="0.69473828" sodipodi:r2="1.4792894"
+                                sodipodi:r1="2.9585788" sodipodi:cy="65.617798" sodipodi:cx="237.13332"
+                                sodipodi:sides="3" id="path3845-1"
+                                style="fill:none;stroke:#008080;stroke-width:3;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                                sodipodi:type="star" />
+                        </g>
+                    </g>
+                </svg>
+                <div class="step">
+                    <h2>STEP 1</h2>
+                    <input id="files" type="file" name="file" />
+                    <button id="read_button">Read File</button>
+                    <div id="byte_range"></div>
+                    <div id="byte_content"></div>
+                    <div id="bencode_content"></div>
+                    <div id="magnet"></div>
+                </div>
+                <div class="step">
+                    <h2>STEP 2</h2>
+                    Fill in this form and press Make.
+                </div>
+                <div class="step">
+                    <h2>STEP 3</h2>
+                    Seed your thing.
+                </div>
+            </div>
+            <div class="span2"></div>
+        </div>
+    </div>
+    <script>
+                    function readBlob (opt_startByte, opt_stopByte)
+                    {
+                        var files = document.getElementById ('files').files;
+                        if (!files.length)
+                        {
+                            alert ('Please select a file!');
+                            return;
+                        }
 
-<script>
-function readBlob (opt_startByte, opt_stopByte)
-{
-    var files = document.getElementById ('files').files;
-    if (!files.length)
-    {
-        alert ('Please select a file!');
-        return;
-    }
+                        var file = files[0];
+                        var start = parseInt (opt_startByte) || 0;
+                        var stop = parseInt (opt_stopByte) || file.size - 1;
 
-    var file = files[0];
-    var start = parseInt (opt_startByte) || 0;
-    var stop = parseInt (opt_stopByte) || file.size - 1;
+                        var reader = new FileReader ();
 
-    var reader = new FileReader ();
+                        // If we use onloadend, we need to check the readyState.
+                        reader.onloadend = function (evt)
+                        {
+                            if (evt.target.readyState == FileReader.DONE)
+                            { // DONE == 2
+                                document.getElementById ('byte_range').textContent = [ 'Read bytes: ', start + 1, ' - ', stop + 1,
+                                        ' of ', file.size, ' byte file' ].join ('');
+                                var binary_torrent = decode (evt.target.result, true);
+                                // we need to use the binary version of the "pieces" element so that it
+                                // doesn't get converted to UTF-8 as required by the bencoding specification
+                                var string_torrent = decode (evt.target.result, false);
 
-    // If we use onloadend, we need to check the readyState.
-    reader.onloadend = function (evt)
-    {
-        if (evt.target.readyState == FileReader.DONE)
-        { // DONE == 2
-            document.getElementById ('byte_range').textContent = [ 'Read bytes: ', start + 1, ' - ', stop + 1, ' of ', file.size,
-                    ' byte file' ].join ('');
-            var binary_torrent = decode (evt.target.result, true);
-            // we need to use the binary version of the "pieces" element so that it
-            // doesn't get converted to UTF-8 as required by the bencoding specification
-            var string_torrent = decode (evt.target.result, false);
+                                string_torrent["info"]["pieces"] = binary_torrent["info"]["pieces"];
+                                document.getElementById ('byte_content').innerHTML = "<pre><code>"
+                                        + JSON.stringify (string_torrent, null, 4) + "</code></pre>";
+                                var output = encode (string_torrent);
+                                document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64,"
+                                        + btoa (output) + "' download='output.torrent'>Torrent File</a>";
 
-            string_torrent["info"]["pieces"] = binary_torrent ["info"]["pieces"];
-            document.getElementById ('byte_content').innerHTML = "<pre><code>" + JSON.stringify (string_torrent, null, 4) + "</code></pre>";
-            var output = encode (string_torrent);
-            document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64," + btoa (output) + "' download='output.torrent'>Torrent File</a>";
+                                // generate the 160 bit (40 hex characters) info primary key
+                                var info = string_torrent['info'];
+                                var primary_key = sha1 (encode (info));
 
-            // generate the 160 bit (40 hex characters) info primary key
-            var info = string_torrent['info'];
-            var primary_key = sha1 (encode (info));
+                                // spew it out as a magnet link URI
+                                var thing = file.name; // default name is the file name
+                                var title = string_torrent["info"]["pieces"]['title'];
+                                if (null == title)
+                                {
+                                    var n = thing.lastIndexOf (".");
+                                    if (-1 == n)
+                                        title = thing;
+                                    else
+                                        title = thing.substring (0, n);
+                                }
+                                title = title.replace (/\&/g, "and");
+                                title = title.replace (/ /g, "%20");
+                                document.getElementById ('magnet').innerHTML = "<a href=\"" + "magnet:?xt=urn:btih:" + primary_key
+                                        + "&dn=" + title + "\"  title=\"Download this torrent using magnet\">"
+                                        + "<img id=\"magnet_icon\" src=\"images/magnet.png\">Magnet" + "</a>";
+                            }
+                        };
 
-            // spew it out as a magnet link URI
-            var thing = file.name; // default name is the file name
-            var title = string_torrent["info"]["pieces"]['title'];
-            if (null == title)
-            {
-                var n = thing.lastIndexOf (".");
-                if (-1 == n)
-                    title = thing;
-                else
-                    title = thing.substring (0, n);
-            }
-            title = title.replace (/\&/g,"and");
-            title = title.replace (/ /g, "%20");
-            document.getElementById ('magnet').innerHTML = "<a href=\"" +
-                "magnet:?xt=urn:btih:" + primary_key + "&dn=" + title + "\"  title=\"Download this torrent using magnet\">" +
-                "<img id=\"magnet_icon\" src=\"images/magnet.png\">Magnet" + "</a>";
-        }
-    };
-
-    var blob = file.slice (start, stop + 1);
-    reader.readAsArrayBuffer (blob);
-}
-  document.querySelector('#read_button').addEventListener('click', function(evt) {
-    if (evt.target.tagName.toLowerCase() == 'button') {
-      var startByte = evt.target.getAttribute('data-startbyte');
-      var endByte = evt.target.getAttribute('data-endbyte');
-      readBlob(startByte, endByte);
-    }
-  }, false);
-</script>
+                        var blob = file.slice (start, stop + 1);
+                        reader.readAsArrayBuffer (blob);
+                    }
+                    document.querySelector ('#read_button').addEventListener ('click', function (evt)
+                    {
+                        if (evt.target.tagName.toLowerCase () == 'button')
+                        {
+                            var startByte = evt.target.getAttribute ('data-startbyte');
+                            var endByte = evt.target.getAttribute ('data-endbyte');
+                            readBlob (startByte, endByte);
+                        }
+                    }, false);
+                </script>
 </body>
 </html>
 
