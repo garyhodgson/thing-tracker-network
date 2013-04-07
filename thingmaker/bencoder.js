@@ -248,6 +248,9 @@ function encode (data)
             case 'object':
                 ret = data.constructor === Array ? encode.list (data) : encode.dict (data);
                 break;
+            default:
+                alert ("oops: data type \"" + (typeof data) + "\" not encoded");
+                break;
         }
 
     return (ret);
@@ -288,7 +291,8 @@ encode.dict = function (data)
 
     keys = [];
     for (var d in data)
-        keys.push (d);
+        if (!('function' == typeof data[d])) // ignore functions in objects
+            keys.push (d);
     keys = keys.sort (); // Keys must be strings and appear in sorted order (sorted as raw strings, not alphanumerics).
     der = [];
     der.push ("d");
