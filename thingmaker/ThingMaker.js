@@ -21,7 +21,7 @@ function ReadTorrentAsync (file, callback)
 {
     var reader = new FileReader ();
 
-    // If we use onloadend, we need to check the readyState.
+    // if we use onloadend, we need to check the readyState.
     reader.onloadend = function (evt)
     {
         if (evt.target.readyState == FileReader.DONE) // DONE == 2
@@ -29,33 +29,26 @@ function ReadTorrentAsync (file, callback)
             var torrent_file = evt.target.result;
             var torrent = ReadTorrent (torrent_file);
 
-            callback (torrent);
-
-            var output = encode (torrent);
-            document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64,"
-                    + btoa (output) + "' download='output.torrent'>Torrent File</a>";
-
-            // generate the 160 bit (40 hex characters) info primary key
-            var info = torrent["info"];
-            var primary_key = sha1 (encode (info));
-
-            // spew it out as a magnet link URI
-            var thing_file = file.name; // default name is the file name
-            var title = torrent["info"]["thing"]["title"];
-            if (null == title)
-            {
-                var n = thing_file.lastIndexOf (".");
-                if (-1 == n)
-                    title = thing_file;
-                else
-                    title = thing_file.substring (0, n);
-            }
-            title = title.replace (/\&/g, "and");
-            title = title.replace (/ /g, "%20");
-            document.getElementById ('magnet').innerHTML = "<a href=\"" + "magnet:?xt=urn:btih:" + primary_key
-                    + "&dn=" + title + "\"  title=\"Download this torrent using magnet\">"
-                    + "<img id=\"magnet_icon\" src=\"images/magnet.png\">Magnet" + "</a>";
+            callback (torrent_file.name, torrent);
         }
     };
     reader.readAsArrayBuffer (file);
+}
+
+function str2ab (str)
+{
+    var len = str.length;
+    var ret = new ArrayBuffer (str.length);
+    var view = new Uint8Array (ret);
+    for (var i = 0; i < len; i++)
+        view[i] = (0xff & str.charCodeAt (i));
+
+    return (ret);
+}
+
+function ReadStringAsync (str, callback)
+{
+    var arraybuffer = str2ab (str);
+    var blob = new Blob([arraybuffer], {type: "application/octet-binary"});
+    ReadTorrentAsync (blob, callback);
 }

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>test</title>
+<title>Thing Maker</title>
 <meta name="author" content="Derrick Oswald" />
 <!-- Date: 2013-03-27 -->
 <script type="text/javascript" src="./bencoder.js"></script>
@@ -300,15 +300,16 @@
                 <div class="step">
                     <h2>STEP 2</h2>
                     Fill in this form with the metadata for your thing and press the <em>Make Thing</em> button.
-                    <form id="thing_form" action="javascript:thing_form ();">
+                    <form id="thing_form" action="javascript:submit_form ();">
                         <ul>
                         <li><label class="thing_form_label" form="thing_form" for="title">Title</label><input id="title" form="thing_form" type="text" name="title"></li>
                         <li><label class="thing_form_label" form="thing_form" for="URL">URL</label><input id="URL" form="thing_form" type="text" name="URL"></li>
+                        <li><label class="thing_form_label" form="thing_form" for="author">Author</label><input id="author" form="thing_form" type="text" name="author"></li>
                         <li><label class="thing_form_label" form="thing_form" for="license">License</label><input id="license" form="thing_form" type="text" name="license"></li>
                         <li><label class="thing_form_label" form="thing_form" for="tags">Tags</label><input id="tags" form="thing_form" type="text" name="tags"></li>
                         <li><label class="thing_form_label" form="thing_form" for="thumbnailURL">Thumbnail URL</label><input id="thumbnailURL" form="thing_form" type="text" name="thumbnailURL"></li>
                         <li><label class="thing_form_label" form="thing_form" for="description">Description</label><input id="description" form="thing_form" type="text" name="description"></li>
-                        <li><input class="thing_form_button" form="thing_form" type="submit" value="Make Thing"></li>
+                        <li><input class="thing_form_button" form="thing_form" type="submit" value="Make Thing" name="make_thing" disabled="disabled"></li>
                         </ul>
                     </form>
                 </div>
@@ -318,6 +319,7 @@
                     with the files that you used to create the base torrent file in Step 1,
                     seed your thing in your BitTorrent client.
                     <div id="bencode_content"></div>
+                    <div id="torrent_content"></div>
                 </div>
                 <div class="step">
                     <h2>STEP 4</h2>
@@ -329,8 +331,13 @@
         </div>
     </div>
     <script>
-        // Show the contents of the Thing object in the content area
-        function showcontent (torrent)
+
+        // torrent to use as a base
+        var TorrentFile = null;
+        var Torrent = null;
+
+        // show the contents of the Thing object in the content area
+        function showcontent (torrent, element)
         {
             // show the torrent contents
             var pre = document.createElement ("pre");
@@ -338,8 +345,13 @@
             pre.appendChild (code);
             var text = document.createTextNode (torrent.toString ());
             code.appendChild (text);
-            var content = document.getElementById ('byte_content');
-            content.childNodes.length = 0;
+            var content = document.getElementById (element);
+            var child = content.firstChild;
+            while (null != child)
+            {
+                content.removeChild (child);
+                child = content.firstChild;
+            }
             content.appendChild (pre);
         }
 
@@ -352,30 +364,150 @@
                 var form = document.getElementById ('thing_form');
                 if (null != form)
                 {
-                    var children = form.getElementsByTagName ("input");
-                    for (i = 0; i < children.length; i++)
+                    for (i = 0; i < form.elements.length; i++)
                     {
-                        var child = children[i];
-                        if (child.nodeName == "INPUT")
+                        var child = form.elements[i];
+                        var id = child.getAttribute ("id");
+                        if (null != id)
                         {
-                            var id = child.getAttribute ("id");
-                            if (null != id)
-                            {
-                                var value = thing[id];
-                                // based on the type, assign the value
-                                if (null != value)
-                                    child.setAttribute ("value", value);
-                            }
+                            var value = thing[id];
+                            // based on the type, assign the value
+                            if (null != value)
+                                child.setAttribute ("value", value);
                         }
                     }
                 }
             }
         }
-        function cb (torrent)
+
+        // enable the Make Thing button
+        function enablebutton ()
         {
-            showcontent (torrent);
+            var children = document.getElementsByName ("make_thing");
+            for (i = 0; i < children.length; i++)
+            {
+                var child = children[i];
+                child.removeAttribute ("disabled");
+            }
+        }
+
+        // callback for reading the torrent file
+        function cb (filename, torrent)
+        {
+            TorrentFileName = filename;
+		    Torrent = torrent;
+		    enablebutton ();
+            showcontent (torrent, "byte_content");
             fillform (torrent);
         }
+
+        // make a title for the thing
+        function maketitle ()
+        {
+            var title = Torrent["info"]["thing"]["title"];
+            if (null == title)
+            {
+                var thing_file = TorrentFileName || "Thing"; // default name is the file name
+                var n = thing_file.lastIndexOf (".");
+                if (-1 == n)
+                    title = thing_file;
+                else
+                    title = thing_file.substring (0, n);
+            }
+            title = title.replace (/\&/g, "and");
+            title = title.replace (/ /g, "%20");
+
+            return (title);
+        }
+
+        // show the contents of the encoded Thing as a link in the content area
+        function showlink (torrent)
+        {
+            // show the torrent contents
+            var a = document.createElement ("a");
+            a.setAttribute ("href", "data:application/octet-stream;base64," + btoa (torrent));
+            a.setAttribute ("download", maketitle () + ".torrent");
+            var text = document.createTextNode ("Torrent File");
+            a.appendChild (text);
+            var content = document.getElementById ('bencode_content');
+            var child = content.firstChild;
+            while (null != child)
+            {
+                content.removeChild (child);
+                child = content.firstChild;
+            }
+            content.appendChild (a);
+        }
+
+        // show the magnet url as a link in the content area
+        function showmagnet ()
+        {
+            // generate the 160 bit (40 hex characters) info primary key magnet URL
+            var title = maketitle ();
+            var info = Torrent["info"];
+            var primary_key = sha1 (encode (info));
+            var magnet = "magnet:?xt=urn:btih:" + primary_key + "&dn=" + title;
+
+            // show the magnet link URI
+            var a = document.createElement ("a");
+            a.setAttribute ("href", magnet);
+            a.setAttribute ("title", "Download this torrent using magnet");
+            var img = document.createElement ("img");
+            a.appendChild (img);
+            img.setAttribute ("src", "images/magnet.png");
+            var text = document.createTextNode ("Magnet Link");
+            a.appendChild (text);
+            var content = document.getElementById ('magnet');
+            var child = content.firstChild;
+            while (null != child)
+            {
+                content.removeChild (child);
+                child = content.firstChild;
+            }
+            content.appendChild (a);
+        }
+
+        // callback for writing (and then reading back) the torrent file
+        function callback (filename, torrent)
+        {
+            showcontent (torrent, "torrent_content");
+            showmagnet (torrent);
+        }
+
+        // called on form submit
+        function submit_form ()
+        {
+            if (null != Torrent)
+            {
+                Torrent["info"]["thing"] = {};
+                var thing = Torrent["info"]["thing"];
+                var form = document.getElementById ('thing_form');
+                if (null != form)
+                {
+                    for (i = 0; i < form.elements.length; i++)
+                    {
+                        var child = form.elements[i];
+                        var id = child.getAttribute ("id");
+                        if (null != id)
+                        {
+                            var value = child.getAttribute ("value");
+                            if ((null != value) && ("" != value))
+                            {
+                                thing[id] = value;
+                                // kludge here to handle the list of tags
+                                if ("tags" == id)
+                                 thing[id] = value.split (',');
+                            }
+                        }
+                    }
+                }
+
+                var output = encode (Torrent);
+                showlink (output);
+                ReadStringAsync (output, callback);
+            }
+        }
+
         document.querySelector ('#files').addEventListener ('change', function (evt)
         {
             if (evt.target.tagName.toLowerCase () == 'input')
