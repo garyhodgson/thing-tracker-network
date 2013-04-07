@@ -300,14 +300,16 @@
                 <div class="step">
                     <h2>STEP 2</h2>
                     Fill in this form with the metadata for your thing and press the <em>Make Thing</em> button.
-                    <form action="javascript:thing_form ();">
-                        Title: <input id="title" type="text" name="title"><br>
-                        URL: <input id="url" type="text" name="URL"><br>
-                        License: <input id="license" type="text" name="license"><br>
-                        Tags: <input id="tags" type="text" name="tags"><br>
-                        Thumbnail URL: <input id="thumbnailurl" type="text" name="thumbnailURL"><br>
-                        Description: <input id="description" type="text" name="description"><br>
-                        <input type="submit" value="Make Thing">
+                    <form id="thing_form" action="javascript:thing_form ();">
+                        <ul>
+                        <li><label class="thing_form_label" form="thing_form" for="title">Title</label><input id="title" form="thing_form" type="text" name="title"></li>
+                        <li><label class="thing_form_label" form="thing_form" for="URL">URL</label><input id="URL" form="thing_form" type="text" name="URL"></li>
+                        <li><label class="thing_form_label" form="thing_form" for="license">License</label><input id="license" form="thing_form" type="text" name="license"></li>
+                        <li><label class="thing_form_label" form="thing_form" for="tags">Tags</label><input id="tags" form="thing_form" type="text" name="tags"></li>
+                        <li><label class="thing_form_label" form="thing_form" for="thumbnailURL">Thumbnail URL</label><input id="thumbnailURL" form="thing_form" type="text" name="thumbnailURL"></li>
+                        <li><label class="thing_form_label" form="thing_form" for="description">Description</label><input id="description" form="thing_form" type="text" name="description"></li>
+                        <li><input class="thing_form_button" form="thing_form" type="submit" value="Make Thing"></li>
+                        </ul>
                     </form>
                 </div>
                 <div class="step">
@@ -327,77 +329,67 @@
         </div>
     </div>
     <script>
-                    function readBlob ()
-                    {
-                        var files;
+        // Show the contents of the Thing object in the content area
+        function showcontent (torrent)
+        {
+            // show the torrent contents
+            var pre = document.createElement ("pre");
+            var code = document.createElement ("code");
+            pre.appendChild (code);
+            var text = document.createTextNode (torrent.toString ());
+            code.appendChild (text);
+            var content = document.getElementById ('byte_content');
+            content.childNodes.length = 0;
+            content.appendChild (pre);
+        }
 
-                        files = document.getElementById ('files').files;
-                        if (0 != files.length)
+        // copy the Thing properties, if found, to the input fields of the form
+        function fillform (torrent)
+        {
+            var thing = torrent["info"]["thing"];
+            if (null != thing)
+            {
+                var form = document.getElementById ('thing_form');
+                if (null != form)
+                {
+                    var children = form.getElementsByTagName ("input");
+                    for (i = 0; i < children.length; i++)
+                    {
+                        var child = children[i];
+                        if (child.nodeName == "INPUT")
                         {
-
-                            var file = files[0];
-                            var start = 0;
-                            var stop = file.size - 1;
-
-                            var reader = new FileReader ();
-
-                            // If we use onloadend, we need to check the readyState.
-                            reader.onloadend = function (evt)
+                            var id = child.getAttribute ("id");
+                            if (null != id)
                             {
-                                if (evt.target.readyState == FileReader.DONE)
-                                {   // DONE == 2
-                                    var torrent_file = evt.target.result;
-                                    var torrent = ReadTorrent (torrent_file);
-
-                                    // show the torrent contents
-                                    var pre = document.createElement ("pre");
-                                    var code = document.createElement ("code");
-                                    pre.appendChild (code);
-                                    var text = document.createTextNode (torrent.toString ());
-                                    code.appendChild (text);
-                                    var content = document.getElementById ('byte_content');
-                                    content.childNodes.length = 0;
-									content.appendChild (pre);
-
-                                    var output = encode (torrent);
-                                    document.getElementById ('bencode_content').innerHTML = "<a href='data:application/octet-stream;base64,"
-                                            + btoa (output) + "' download='output.torrent'>Torrent File</a>";
-
-                                    // generate the 160 bit (40 hex characters) info primary key
-                                    var info = torrent["info"];
-                                    var primary_key = sha1 (encode (info));
-
-                                    // spew it out as a magnet link URI
-                                    var thing = file.name; // default name is the file name
-                                    var title = torrent["info"]["thing"]["title"];
-                                    if (null == title)
-                                    {
-                                        var n = thing.lastIndexOf (".");
-                                        if (-1 == n)
-                                            title = thing;
-                                        else
-                                            title = thing.substring (0, n);
-                                    }
-                                    title = title.replace (/\&/g, "and");
-                                    title = title.replace (/ /g, "%20");
-                                    document.getElementById ('magnet').innerHTML = "<a href=\"" + "magnet:?xt=urn:btih:" + primary_key
-                                            + "&dn=" + title + "\"  title=\"Download this torrent using magnet\">"
-                                            + "<img id=\"magnet_icon\" src=\"images/magnet.png\">Magnet" + "</a>";
-                                }
-                            };
-
-                            var blob = file.slice (start, stop + 1);
-                            reader.readAsArrayBuffer (blob);
+                                var value = thing[id];
+                                // based on the type, assign the value
+                                if (null != value)
+                                    child.setAttribute ("value", value);
+                            }
                         }
-                        else
-                            alert ('Please select a file.');
                     }
-                    document.querySelector ('#files').addEventListener ('change', function (evt)
-                    {
-                        if (evt.target.tagName.toLowerCase () == 'input')
-                            readBlob ();
-                    }, false);
-                </script>
+                }
+            }
+        }
+        function cb (torrent)
+        {
+            showcontent (torrent);
+            fillform (torrent);
+        }
+        document.querySelector ('#files').addEventListener ('change', function (evt)
+        {
+            if (evt.target.tagName.toLowerCase () == 'input')
+            {
+                var files;
+
+                files = document.getElementById ('files').files;
+                if (0 != files.length)
+                    ReadTorrentAsync (files[0], cb);
+                else
+                    alert ('Please select a file.');
+            }
+        }, false);
+    </script>
 </body>
 </html>
 

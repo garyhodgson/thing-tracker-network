@@ -30,3 +30,33 @@
 #magnet_icon {
     padding-right: 10px;
 }
+
+form#thing_form ul {
+    list-style: none;
+}
+
+form#thing_form li {
+    width: 100%;
+}
+
+.thing_form_label {
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    text-align: right;
+    padding-right: 8px;
+}
+
+form#thing_form input[type=text] {
+    display: inline-block;
+    width: 80%;
+    background-color: #e3edf9;
+    box-shadow: 1px 1px 0 #CCCCCC inset;
+}
+
+/* the following is only required because of the thingtracker.css definition of #description */
+input#description {
+    padding: 4px 6px 4px 6px;
+    border-bottom-style: solid;
+    border-bottom-color: #CCCCCC;
+}
