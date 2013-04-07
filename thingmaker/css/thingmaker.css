@@ -17,17 +17,24 @@
 }
 
 #bencode_content {
+    padding: 10px;
+    font-size: x-large;
+    text-decoration: underline;
+    margin: 5px 0;
+}
+
+#torrent_content.a {
     margin: 5px 0;
     max-height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-#torrent_content {
+#magnet_content.a {
+    padding: 10px;
+    font-size: x-large;
+    text-decoration: underline;
     margin: 5px 0;
-    max-height: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 #byte_range {
