@@ -52,3 +52,21 @@ function ReadStringAsync (str, callback)
     var blob = new Blob([arraybuffer], {type: "application/octet-binary"});
     ReadTorrentAsync (blob, callback);
 }
+
+function ReadFileAsync (file, callback)
+{
+    var reader = new FileReader ();
+
+    // if we use onloadend, we need to check the readyState.
+    reader.onloadend = function (evt)
+    {
+        if (evt.target.readyState == FileReader.DONE) // DONE == 2
+        {
+            var text = sha1 (evt.target.result);
+            callback (text);
+        }
+    };
+    reader.readAsArrayBuffer (file);
+}
+
+

@@ -30,6 +30,9 @@
                 <div class="span12">
                 The idea behind the Thing Maker is to use <a href="https://en.wikipedia.org/wiki/Bittorrent">BitTorrent</a>
                 to distribute <a href="http://thingtracker.net/">Thing Tracker things</a>.
+                An overview of the idea can be found <a href="http://my.brainshark.com/Distributed-Thing-Tracker-767853647">here</a>.
+                <br>
+                <br>
                 This page helps with steps 1-4 of the process shown below:
                 </div>
                 </div>
@@ -358,6 +361,14 @@
   </g>
 </svg>
                 <div class="step">
+                    <h2>STEP 0</h2>
+                    Choose a file.
+                    <div id="choose_thing_form">
+                        Choose a thing file: <input id="thing_files" type="file" name="file" />
+                    </div>
+                    <div id="file_content"></div>
+                </div>
+                <div class="step">
                     <h2>STEP 1</h2>
                     Choose a torrent file (created by a BitTorrent client such as the free
                     <a href="http://www.bittorrent.com/bittorrent-plus/index/frmnvh">BitTorrent</a> or
@@ -367,7 +378,7 @@
                     This torrent was created in Step 0 by selecting the files in your <em>Thing</em>, and other
                     data, such as a comment, that are required by the BitTorrent client you are using.
                     <div id="choose_torrent_basis_form">
-                        Choose a base torrent file: <input id="files" type="file" name="file" />
+                        Choose a base torrent file: <input id="torrent_files" type="file" name="file" />
                     </div>
                     <div id="byte_content"></div>
                 </div>
@@ -417,7 +428,8 @@
             var pre = document.createElement ("pre");
             var code = document.createElement ("code");
             pre.appendChild (code);
-            var text = document.createTextNode (torrent.toString ());
+            //var text = document.createTextNode (torrent.toString ());
+            var text = document.createTextNode (printpieces (torrent["info"]["pieces"]));
             code.appendChild (text);
             var content = document.getElementById (element);
             var child = content.firstChild;
@@ -591,19 +603,82 @@
             }
         }
 
-        document.querySelector ('#files').addEventListener ('change', function (evt)
+        function cb3 (sha)
         {
-            if (evt.target.tagName.toLowerCase () == 'input')
+            var pre = document.createElement ("pre");
+            var code = document.createElement ("code");
+            pre.appendChild (code);
+            var text = document.createTextNode (sha);
+            code.appendChild (text);
+            var content = document.getElementById ('file_content');
+            var child = content.firstChild;
+            while (null != child)
             {
-                var files;
-
-                files = document.getElementById ('files').files;
-                if (0 != files.length)
-                    ReadTorrentAsync (files[0], cb);
-                else
-                    alert ('Please select a file.');
+                content.removeChild (child);
+                child = content.firstChild;
             }
-        }, false);
+            content.appendChild (pre);
+
+        }
+
+        function tohex (val)
+        {
+            var str = "";
+            var i;
+            var v;
+
+            for (i = 7; i >= 0; i--)
+            {
+                v = (val >>> (i * 4)) & 0x0f;
+                str += v.toString (16);
+            }
+            return str;
+        };
+
+        function printpieces (pieces)
+        {
+            var i;
+            var view
+            var ret;
+            
+            ret = "";
+
+            view = new Uint8Array (pieces);
+            for (i = 0; i < view.byteLength; i++)
+            {
+                ret += ((view[i] >>> 4) & 0x0f).toString (16);
+                ret += (view[i] & 0x0f).toString (16);
+            }
+            
+            return (ret);
+        }
+
+        document.querySelector ('#thing_files').addEventListener ('change', function (evt)
+                {
+                    if (evt.target.tagName.toLowerCase () == 'input')
+                    {
+                        var files;
+
+                        files = document.getElementById ('thing_files').files;
+                        if (0 != files.length)
+                            ReadFileAsync (files[0], cb3);
+                        else
+                            alert ('Please select a file.');
+                    }
+                }, false);
+        document.querySelector ('#torrent_files').addEventListener ('change', function (evt)
+                {
+                    if (evt.target.tagName.toLowerCase () == 'input')
+                    {
+                        var files;
+
+                        files = document.getElementById ('torrent_files').files;
+                        if (0 != files.length)
+                            ReadTorrentAsync (files[0], cb);
+                        else
+                            alert ('Please select a file.');
+                    }
+                }, false);
     </script>
 </body>
 </html>
