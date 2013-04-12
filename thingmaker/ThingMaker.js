@@ -64,7 +64,7 @@ function ReadFileAsync (file, piece_length, callback)
         {
             var length;
             var text;
-            
+
             length = evt.target.result.byteLength;
             text = "";
             for (var i = 0; i < length; i += piece_length)
