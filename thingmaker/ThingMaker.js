@@ -53,7 +53,7 @@ function ReadStringAsync (str, callback)
     ReadTorrentAsync (blob, callback);
 }
 
-function ReadFileAsync (file, callback)
+function ReadFileAsync (file, piece_length, callback)
 {
     var reader = new FileReader ();
 
@@ -62,7 +62,13 @@ function ReadFileAsync (file, callback)
     {
         if (evt.target.readyState == FileReader.DONE) // DONE == 2
         {
-            var text = sha1 (evt.target.result);
+            var length;
+            var text;
+            
+            length = evt.target.result.byteLength;
+            text = "";
+            for (var i = 0; i < length; i += piece_length)
+                text += sha1 (evt.target.result.slice (i, i + piece_length)) + "\n";
             callback (text);
         }
     };

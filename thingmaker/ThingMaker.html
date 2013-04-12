@@ -421,16 +421,23 @@
         var TorrentFile = null;
         var Torrent = null;
 
-        // show the contents of the Thing object in the content area
-        function showcontent (torrent, element)
+        function format (text)
         {
-            // show the torrent contents
             var pre = document.createElement ("pre");
             var code = document.createElement ("code");
             pre.appendChild (code);
-            //var text = document.createTextNode (torrent.toString ());
-            var text = document.createTextNode (printpieces (torrent["info"]["pieces"]));
-            code.appendChild (text);
+            var pieces = text.split ('\n');
+            for (var i = 0; i < pieces.length; i++)
+            {
+                code.appendChild (document.createTextNode (pieces[i]));
+                code.appendChild (document.createElement ("br"));
+            }
+            
+            return (pre);
+        }
+
+        function clean_add (element, node)
+        {
             var content = document.getElementById (element);
             var child = content.firstChild;
             while (null != child)
@@ -438,7 +445,16 @@
                 content.removeChild (child);
                 child = content.firstChild;
             }
-            content.appendChild (pre);
+            content.appendChild (node);
+        }
+
+        // show the contents of the Thing object in the content area
+        function showcontent (torrent, element)
+        {
+            // show the torrent contents
+            //var raw_text = document.createTextNode (torrent.toString ());
+            var raw_text = printpieces (torrent["info"]["pieces"]);
+			clean_add (element, format (raw_text));
         }
 
         // copy the Thing properties, if found, to the input fields of the form
@@ -605,20 +621,7 @@
 
         function cb3 (sha)
         {
-            var pre = document.createElement ("pre");
-            var code = document.createElement ("code");
-            pre.appendChild (code);
-            var text = document.createTextNode (sha);
-            code.appendChild (text);
-            var content = document.getElementById ('file_content');
-            var child = content.firstChild;
-            while (null != child)
-            {
-                content.removeChild (child);
-                child = content.firstChild;
-            }
-            content.appendChild (pre);
-
+            clean_add ("file_content", format (sha));
         }
 
         function tohex (val)
@@ -638,18 +641,22 @@
         function printpieces (pieces)
         {
             var i;
-            var view
+            var view;
+            var br;
             var ret;
             
             ret = "";
 
             view = new Uint8Array (pieces);
+            br = 0;
             for (i = 0; i < view.byteLength; i++)
             {
                 ret += ((view[i] >>> 4) & 0x0f).toString (16);
                 ret += (view[i] & 0x0f).toString (16);
+                if (0 == (++br % 20))
+                    ret += "\n";
             }
-            
+
             return (ret);
         }
 
@@ -660,8 +667,9 @@
                         var files;
 
                         files = document.getElementById ('thing_files').files;
+                        alert ("" + files.length + " files [0]" + files[0].name);
                         if (0 != files.length)
-                            ReadFileAsync (files[0], cb3);
+                            ReadFileAsync (files[0], 16384, cb3);
                         else
                             alert ('Please select a file.');
                     }
