@@ -206,11 +206,27 @@ function sha1 (msg, binary)
     if (binary)
     {
         ret = new ArrayBuffer (20);
-        temp = new Uint32Array (ret);
-        temp[0] = H0;
-        temp[0] = H1;
-        temp[0] = H2;
-        temp[0] = H3;
+        temp = new Uint8Array (ret);
+        temp[0] = (H0 >> 24) & 0xff;
+        temp[1] = (H0 >> 16) & 0xff;
+        temp[2] = (H0 >>  8) & 0xff;
+        temp[3] = (H0      ) & 0xff;
+        temp[4] = (H1 >> 24) & 0xff;
+        temp[5] = (H1 >> 16) & 0xff;
+        temp[6] = (H1 >>  8) & 0xff;
+        temp[7] = (H1      ) & 0xff;
+        temp[8] = (H2 >> 24) & 0xff;
+        temp[9] = (H2 >> 16) & 0xff;
+        temp[10] = (H2 >>  8) & 0xff;
+        temp[11] = (H2      ) & 0xff;
+        temp[12] = (H3 >> 24) & 0xff;
+        temp[13] = (H3 >> 16) & 0xff;
+        temp[14] = (H3 >>  8) & 0xff;
+        temp[15] = (H3      ) & 0xff;
+        temp[16] = (H4 >> 24) & 0xff;
+        temp[17] = (H4 >> 16) & 0xff;
+        temp[18] = (H4 >>  8) & 0xff;
+        temp[19] = (H4      ) & 0xff;
     }
     else
     {
