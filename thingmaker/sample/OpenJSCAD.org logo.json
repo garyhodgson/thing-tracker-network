@@ -1,0 +1,9 @@
+{
+        "title": "OpenJSCAD.org logo",
+        "URL": "http://openjscad.org/",
+        "author": "Rene K. Mueller",
+        "license": "MIT License & GPLv2",
+        "tags": ["logo", "OpenJSCAD"],
+        "thumbnailURL": "http://openjscad.org/imgs/title.png",
+        "description": "The logo for the OpenJSCAD program as a three dimensional object."
+}
