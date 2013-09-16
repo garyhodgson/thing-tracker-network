@@ -7,7 +7,7 @@ Have a look at the main website for more details: [thingtracker.net](http://thin
 
 ### Specification
 
-The schema is given in two formats: [js-schema](git://github.com/molnarg/js-schema.git) for conciseness, and [json-schema](http://json-schema.org) which can be read and parsed directly, (using JSON.parse, for example).  The js-schema version has to be read in via aneval() or a Function statement, which makes it less secure.
+The schema is given in two formats: [js-schema](git://github.com/molnarg/js-schema.git) for conciseness, and [json-schema](http://json-schema.org) which can be read and parsed directly, (using JSON.parse, for example).  The js-schema version has to be read in via an eval() or a Function statement, which makes it less secure.
 
 ### Examples
 Several example tracker documents are given to give an idea of how the specification can be used.
