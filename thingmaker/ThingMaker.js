@@ -19,7 +19,7 @@ var Blobs = null; // collection of the file contents
 var PieceLength =  16384;
 var Hashes; // ArrayBuffer of hashes
 
-function printpieces (pieces, tabspace)
+function printPieces (pieces, tabspace)
 {
     var view;
     var br;
@@ -43,9 +43,65 @@ function printpieces (pieces, tabspace)
     return (ret);
 }
 
+function printCertificate (cert, tabspace)
+{
+    var br;
+    var ret;
+
+    ret = "";
+
+    for (var j = 0; j < tabspace; j++)
+        ret += " ";
+    ret += "-----BEGIN CERTIFICATE-----\n";
+
+    var b64 = btoa (String.fromCharCode.apply (null, new Uint8Array (cert)));
+    br = 0;
+    for (var i = 0; i < b64.length; i++)
+    {
+        if (0 == (br % 64))
+            for (var j = 0; j < tabspace; j++)
+                ret += " ";
+        ret += b64.charAt (i);
+        if ((0 == (++br % 64)) && (i + 1 < b64.length))
+            ret += "\n";
+    }
+    ret += "\n";
+    for (var j = 0; j < tabspace; j++)
+        ret += " ";
+    ret += "-----END CERTIFICATE-----";
+
+    return (ret);
+}
+
+function printSignature (signature, tabspace)
+{
+    var view;
+    var br;
+    var ret;
+
+    ret = "";
+
+    view = new Uint8Array (signature);
+    br = 0;
+    for (var i = 0; i < view.byteLength; i++)
+    {
+        if (0 == (br % 32))
+            for (var j = 0; j < tabspace; j++)
+                ret += " ";
+        ret += ((view[i] >>> 4) & 0x0f).toString (16);
+        ret += (view[i] & 0x0f).toString (16);
+        if ((0 == (++br % 32)) && (i + 1 < view.byteLength))
+            ret += "\n";
+    }
+
+    return (ret);
+}
+
 function printTorrent (torrent)
 {
     var trigger = "\"pieces\": {}";
+    var cert = "\"certificate\": {}";
+    var signature = "\"signature\": {}";
     var index;
     var tabspace;
     var raw_text;
@@ -59,11 +115,37 @@ function printTorrent (torrent)
         tabspace = 0;
         while (" " == ret.substr (index - tabspace - 1, 1))
             tabspace++;
-        raw_text = printpieces (torrent["info"]["pieces"], tabspace + 4);
+        raw_text = printPieces (torrent["info"]["pieces"], tabspace + 4);
         s = "";
         for (var j = 0; j < tabspace; j++)
             s += " ";
         ret = ret.substr (0, index) + "\"pieces\": {\n" + raw_text + "\n" + s + "}" + ret.substr (index + trigger.length);
+    }
+    // kludgy way to show the certificate
+    index = ret.indexOf (cert);
+    if (0 < index)
+    {
+        tabspace = 0;
+        while (" " == ret.substr (index - tabspace - 1, 1))
+            tabspace++;
+        raw_text = printCertificate (torrent["signatures"]["net.thingtracker"]["certificate"], tabspace + 4);
+        s = "";
+        for (var j = 0; j < tabspace; j++)
+            s += " ";
+        ret = ret.substr (0, index) + "\"certificate\": {\n" + raw_text + "\n" + s + "}" + ret.substr (index + cert.length);
+    }
+    // kludgy way to show the signature
+    index = ret.indexOf (signature);
+    if (0 < index)
+    {
+        tabspace = 0;
+        while (" " == ret.substr (index - tabspace - 1, 1))
+            tabspace++;
+        raw_text = printSignature (torrent["signatures"]["net.thingtracker"]["signature"], tabspace + 4);
+        s = "";
+        for (var j = 0; j < tabspace; j++)
+            s += " ";
+        ret = ret.substr (0, index) + "\"signature\": {\n" + raw_text + "\n" + s + "}" + ret.substr (index + signature.length);
     }
 
     return (ret);
@@ -77,6 +159,18 @@ function ReadTorrent (torrent_file)
     var binary_torrent = decode (torrent_file, true);
     var string_torrent = decode (torrent_file, false);
     string_torrent["info"]["pieces"] = binary_torrent["info"]["pieces"];
+    var signatures = string_torrent["signatures"];
+    if (signatures)
+        for (var identifier in signatures)
+            if (signatures.hasOwnProperty (identifier))
+            {
+                var cert = signatures[identifier]["certificate"];
+                if (cert)
+                    signatures[identifier]["certificate"] = binary_torrent["signatures"][identifier]["certificate"];
+                var sig = signatures[identifier]["signature"];
+                if (sig)
+                    signatures[identifier]["signature"] = binary_torrent["signatures"][identifier]["signature"];
+            }
     // add a utility function
     string_torrent.toString = function () { return (printTorrent (this)); };
 

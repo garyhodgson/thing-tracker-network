@@ -7,9 +7,39 @@
 <title>Thing Maker</title>
 <meta name="author" content="Derrick Oswald" />
 <!-- Date: 2013-03-27 -->
-<script type="text/javascript" src="./bencoder.js"></script>
-<script type="text/javascript" src="./sha1.js"></script>
-<script type="text/javascript" src="./ThingMaker.js"></script>
+<script language="JavaScript" type="text/javascript" src="./bencoder.js"></script>
+<script language="JavaScript" type="text/javascript" src="./sha1.js"></script>
+<script language="JavaScript" type="text/javascript" src="./ThingMaker.js"></script>
+
+<!-- all of the crap below is used by the jsrsasign code -->
+<!-- assumes that a git clone was performed into the jsrsasign directory within the thingmaker directory -->
+<!-- e.g. thing-tracker-network\thingmaker>git clone https://github.com/derrickoswald/jsrsasign.git jsrsasign -->
+<!-- Note: this will *not* be added to the thingmaker repository, and hence must be performed separately -->
+
+<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/jsbn.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/jsbn2.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/rsa.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/rsa2.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/ext/base64.js"></script>
+
+<!-- for crypto.js -->
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/md5.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha1.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha256.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/ripemd160.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/x64-core.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/sha512.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="jsrsasign/rsapem-1.1.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/rsasign-1.2.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/asn1hex-1.1.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/x509-1.1.js"></script>
+<script language="JavaScript" type="text/javascript" src="jsrsasign/crypto-1.1.js"></script>
+<!-- end.. all of the crap -->
+
+<script language="JavaScript" type="text/javascript" src="./ThingSigner.js"></script>
+
 <link href="./css/bootstrap/bootstrap.css" rel="stylesheet">
 <link href="./css/thingtracker.css" rel="stylesheet" media="screen" type="text/css">
 <link href="./css/thingmaker.css" rel="stylesheet" media="screen" type="text/css">
@@ -414,7 +444,7 @@
                 <div class="step">
                     <h2>STEP 4</h2>
                     Download the torrent file by clicking on the link below, save it, and together
-                    with the files that you specified in the base torrent file in Step 0,
+                    with the files that you specified in the base torrent file in Step 1,
                     seed your thing in your BitTorrent client.
                     <div id="bencode_content"></div>
                     <div id="torrent_content"></div>
@@ -428,7 +458,7 @@
             <div class="span2"></div>
         </div>
     </div>
-    <script>
+    <script language="JavaScript" type="text/javascript">
                     // torrent to use as a base
                     var TorrentFile = null;
                     var Torrent = null;
@@ -465,7 +495,6 @@
                     {
                         // show the torrent contents
                         var raw_text = torrent.toString ();
-                        //var raw_text = printpieces (torrent["info"]["pieces"]);
                         clean_add (element, format (raw_text));
                     }
 
@@ -626,6 +655,7 @@
                             }
                         }
 
+                        SignTorrent (Torrent);
                         var output = encode (Torrent);
                         showlink (output);
                         ReadStringAsync (output, callback);
