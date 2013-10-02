@@ -68,6 +68,7 @@ function sha1 (msg, binary)
     var H4 = 0xC3D2E1F0;
     var A, B, C, D, E;
     var temp;
+    var ret;
 
     binary = binary | false;
     var word_array = new Array ();

@@ -260,6 +260,7 @@ encode.string = function (data)
 {
     var str;
     var prefix;
+    var ret;
 
     // create a UTF-8 encoded string
     str = encode.encode_utf8 (data);
