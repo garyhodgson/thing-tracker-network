@@ -16,9 +16,10 @@ schema({
 
   "things" : Array.of({
 
-    "uuid": /[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}/,
+    "id": /[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}/,
     "title": String,
-    "url": String,
+    "*url": String,
+    "*ref-url": String,
 
     "*authors": Array.of({
       "name": String,
@@ -83,7 +84,7 @@ schema({
     "*updated": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
     "*x-things-cache-metadata": Object,
   },
-  
+
   "*x-tracker-metadata": Object,
 
 
