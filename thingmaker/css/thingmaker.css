@@ -74,3 +74,27 @@ input#description {
     border-bottom-style: solid;
     border-bottom-color: #CCCCCC;
 }
+
+form#signing_form ul {
+    list-style: none;
+}
+
+form#signing_form li {
+    width: 100%;
+}
+
+.signing_form_label {
+    display: inline-block;
+    width: auto;
+    min-width: 100px;
+    text-align: right;
+    padding-right: 8px;
+}
+
+form#signing_form textarea[type=text] {
+    display: inline-block;
+    width: 80%;
+    background-color: #e3edf9;
+    box-shadow: 1px 1px 0 #CCCCCC inset;
+    font-family: monospace;
+}
