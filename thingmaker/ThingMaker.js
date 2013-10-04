@@ -311,7 +311,7 @@ function ReadFilesAsync (files, piece_length, callback)
             {
                 var d = 0;
                 for (var l = 0; l < 4; l++)
-                    d = (d << 8) + (temp[k + l] & 0xff);
+                    d = (d << 8) + (temp[(k * 4) + l] & 0xff);
                 raw_text += cvt_hex (d);
             }
             text += raw_text.toLowerCase () + "\n";
@@ -343,7 +343,7 @@ function ReadFilesAsync (files, piece_length, callback)
     }
 }
 
-function MakeTorrent ()
+function MakeTorrent (template)
 {
     var epoch;
     var infohash;
@@ -373,14 +373,23 @@ function MakeTorrent ()
                 "pieces": Hashes
             };
     }
-    ret =
+    if (null == template)
+        ret =
+        {
+            "created by": "ThingMaker v0.1",
+            "creation date": epoch,
+            "encoding": "UTF-8",
+            "info": infohash
+        };
+    else
     {
-        //"comment": "Super simple thing.",
-        "created by": "ThingMaker v0.1",
-        "creation date": epoch,
-        "encoding": "UTF-8",
-        "info": infohash
-    };
+        ret = template;
+        var thing = ret["info"]["thing"];
+        ret["creation date"] = epoch;
+        ret["info"] = infohash;
+        if (null != thing)
+            ret["info"]["thing"] = thing;
+    }
 
     return (ret);
 }

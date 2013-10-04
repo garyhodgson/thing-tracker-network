@@ -538,7 +538,8 @@
                     function cb (filename, torrent)
                     {
                         TorrentFileName = filename;
-                        Torrent = torrent;
+                        // replace the existing pieces with the current pieces
+                        Torrent = MakeTorrent (torrent);
                         enablebutton ();
                         showcontent (torrent, "byte_content");
                         fillform (torrent);
@@ -687,7 +688,6 @@
                             var files;
 
                             files = document.getElementById ('thing_files').files;
-                            //alert ("" + files.length + " files [0] " + files[0].name);
                             if (0 != files.length)
                             {
                                 ReadFilesAsync (files, 16384, cb3);
