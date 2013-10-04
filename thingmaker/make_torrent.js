@@ -27,9 +27,9 @@
  * 
       {
         "title": "Mechanical Movement #27",
-        "URL": "http://garyhodgson.github.com/githubiverse-tst",
-        "author": "Gary Hodgson",
-        "license": "GPL3",
+        "url": "http://garyhodgson.github.com/githubiverse-tst",
+        "authors": ["Gary Hodgson"],
+        "licenses": ["GPL3"],
         "tags": ["mechanical movement", "fun"],
         "thumbnailURL": "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg",
         "description": "An implementation of movement #27 from &quot;501 Mechanical Movements&quot; by Henry T. Brown.\\n\\nThis is still a work in progress."

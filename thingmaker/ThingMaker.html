@@ -482,17 +482,17 @@
                     <h2>STEP 3</h2>
                     Fill in this form with the metadata for your <em>Thing</em> and press the <b>Make Thing</b> button.<br>
                     For details about the fields, consult the <a href="http://thingtracker.net/#specification">specification</a>.
-                    Tags are comma separated.
+                    Authors, licenses and tags are comma separated.
                     <form id="thing_form" action="javascript:submit_form ();">
                         <ul>
                             <li><label class="thing_form_label" form="thing_form" for="title">Title</label><input id="title"
                                 form="thing_form" type="text" name="title"></li>
-                            <li><label class="thing_form_label" form="thing_form" for="URL">URL</label><input id="URL"
-                                form="thing_form" type="text" name="URL"></li>
-                            <li><label class="thing_form_label" form="thing_form" for="author">Author</label><input id="author"
-                                form="thing_form" type="text" name="author"></li>
-                            <li><label class="thing_form_label" form="thing_form" for="license">License</label><input
-                                id="license" form="thing_form" type="text" name="license"></li>
+                            <li><label class="thing_form_label" form="thing_form" for="url">URL</label><input id="url"
+                                form="thing_form" type="text" name="url"></li>
+                            <li><label class="thing_form_label" form="thing_form" for="authors">Authors</label><input id="authors"
+                                form="thing_form" type="text" name="authors"></li>
+                            <li><label class="thing_form_label" form="thing_form" for="licenses">Licenses</label><input
+                                id="licenses" form="thing_form" type="text" name="licenses"></li>
                             <li><label class="thing_form_label" form="thing_form" for="tags">Tags</label><input id="tags"
                                 form="thing_form" type="text" name="tags"></li>
                             <li><label class="thing_form_label" form="thing_form" for="thumbnailURL">Thumbnail URL</label><input
@@ -804,8 +804,8 @@ tiVNNk2MZ6PDp0Kfzmf0FfT1TJELXrsM4VuQVsqdhDBDvmI=
                                     if ((null != value) && ("" != value))
                                     {
                                         thing[id] = value;
-                                        // kludge here to handle the list of tags
-                                        if ("tags" == id)
+                                        // kludge here to handle the lists
+                                        if (("authors" == id) || ("licenses" == id) || ("tags" == id))
                                             thing[id] = value.split (',');
                                     }
                                 }
