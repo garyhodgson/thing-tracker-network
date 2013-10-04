@@ -56,7 +56,7 @@ function SignTorrent (torrent, privatekey, certificate, version, nonce, next_non
     info2["ancestors"] = oldancestors;
 
     var check = sha1 (nonce);
-    if (oldsecret)
+    if (oldsecret["hash"])
         if (oldsecret["hash"] != check)
         {
             alert ("Hash for nonce \"" + nonce + "\" does not agree with secret hash " + oldsecret["hash"]);
