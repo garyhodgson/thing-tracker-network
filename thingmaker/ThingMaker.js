@@ -13,10 +13,10 @@ nodes = [["<host>", <port>], ["<host>", <port>], ...]
 nodes = [["127.0.0.1", 6881], ["your.router.node", 4804]]
  */
 
-// files to include
-var Files = null;
+var Files = null; // files to include
+var Directory = null; // directory (of multiple files)
 var Blobs = null; // collection of the file contents
-var PieceLength =  16384;
+var PieceLength =  16384; // chunk size for hash computation
 var Hashes; // ArrayBuffer of hashes
 
 function printPieces (pieces, tabspace)
@@ -345,12 +345,12 @@ function ReadFilesAsync (files, piece_length, callback)
 
 function MakeTorrent (template)
 {
-    var epoch;
+    var timestamp;
     var infohash;
     var ret;
 
-    // javascript date is number of ms since epoch
-    epoch = Math.round ((new Date ()).getTime() / 1000.0);
+    // javascript date is number of millisconds since epoch
+    timestamp = Math.round ((new Date ()).getTime() / 1000.0);
     if (1 == Files.length)
         infohash = {
                 "length": Files[0].size,
@@ -368,7 +368,7 @@ function MakeTorrent (template)
                 };
         infohash = {
                 "files": filedata,
-                "name": "SampleDirectory", // where to get the directory name?
+                "name": Directory,
                 "piece length": PieceLength,
                 "pieces": Hashes
             };
@@ -377,15 +377,15 @@ function MakeTorrent (template)
         ret =
         {
             "created by": "ThingMaker v0.1",
-            "creation date": epoch,
+            "creation date": timestamp,
             "encoding": "UTF-8",
             "info": infohash
         };
     else
     {
         ret = template;
-        var thing = ret["info"]["thing"];
-        ret["creation date"] = epoch;
+        var thing = ret["info"]["thing"]; // keep the thing data from the info section - if any
+        ret["creation date"] = timestamp;
         ret["info"] = infohash;
         if (null != thing)
             ret["info"]["thing"] = thing;

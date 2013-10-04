@@ -397,9 +397,14 @@
                     Identify the files to be included in your <em>Thing</em>. <br>
                     Currently, you can either select a single file by clicking on the button below and using the "File Upload"
                     dialog to navigate to and identify the file,
-                    or you can drag and drop a list of files onto the button (this only works in FireFox but will be fixed eventually).
+                    or you can drag and drop a list of files onto the button
+                    (this only works in FireFox but will be fixed eventually),
+                    but then you must specify the directory for the files.
                     <div id="choose_thing_form">
                         Select file(s): <input id="thing_files" type="file" name="file" />
+                    </div>
+                    <div id="choose_thing_directory">
+                        Directory: <input id="thing_directory" type="text" name="directory" />
                     </div>
                     <div id="file_content"></div>
                 </div>
@@ -411,7 +416,7 @@
                     that has mostly the same metadata as you will be filling in in Step 3. In the latter case, change
                     the name to avoid creating a new version of the template <em>Thing</em> by accident.
                     <div id="choose_torrent_basis_form">
-                        Choose a base torrent file: <input id="torrent_files" type="file" name="file" />
+                        Choose a base torrent file: <input id="torrent_files" type="file" name="file" disabled="disabled" />
                     </div>
                     <div id="byte_content"></div>
                 </div>
@@ -532,6 +537,21 @@
                             var child = children[i];
                             child.removeAttribute ("disabled");
                         }
+                        var files = document.getElementById ('torrent_files');
+                        files.removeAttribute ("disabled");
+                    }
+
+                    // disable the Make Thing button
+                    function disablebutton ()
+                    {
+                        var children = document.getElementsByName ("make_thing");
+                        for (i = 0; i < children.length; i++)
+                        {
+                            var child = children[i];
+                            child.setAttribute ("disabled", "disabled");
+                        }
+                        var files = document.getElementById ('torrent_files');
+                        files.setAttribute ("disabled", "disabled");
                     }
 
                     // callback for reading the torrent file
@@ -691,10 +711,32 @@
                             if (0 != files.length)
                             {
                                 ReadFilesAsync (files, 16384, cb3);
-                                enablebutton ();
+                                if (null != Files && (1 == Files.length))
+                                    enablebutton ();
                             }
                             else
                                 alert ('Please select a file.');
+                        }
+                    }, false);
+                    document.querySelector ('#thing_directory').addEventListener ('keyup', function (evt)
+                    {
+                        if (evt.target.tagName.toLowerCase () == 'input')
+                        {
+                            var dir;
+                            dir = document.getElementById ('thing_directory').value;
+                            dir = dir.trim ();
+                            if (0 != dir.length)
+                            {
+                                Directory = dir;
+                                enablebutton ();
+                            }
+                            else
+                            {
+                                Directory = null;
+                                disablebutton ();
+                                if (null != Files && (1 < Files.length))
+	                                alert ('Directory cannot be empty when specifying multiple files.');
+                            }
                         }
                     }, false);
                     document.querySelector ('#torrent_files').addEventListener ('change', function (evt)
