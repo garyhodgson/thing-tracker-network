@@ -65,8 +65,12 @@ function SignTorrent (torrent, privatekey, certificate, version, nonce, next_non
     
     var me = {};
     me[version] = {};
-    me[version]["nonce"] = nonce;
-    me[version]["hash"] = check;
+    if ("" != nonce)
+    {
+        me[version]["nonce"] = nonce;
+        me[version]["hash"] = check;
+    }
+    me[version]["id"] = sha1 (encode (info));
     info2["current"] = me;
     
     var secret = {};
