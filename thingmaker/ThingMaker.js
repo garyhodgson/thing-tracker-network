@@ -180,6 +180,7 @@ function ReadTorrent (torrent_file)
 function ReadTorrentAsync (file, callback)
 {
     var reader = new FileReader ();
+    var name = file.name;
 
     // if we use onloadend, we need to check the readyState.
     reader.onloadend = function (evt)
@@ -189,7 +190,7 @@ function ReadTorrentAsync (file, callback)
             var torrent_file = evt.target.result;
             var torrent = ReadTorrent (torrent_file);
 
-            callback (torrent_file.name, torrent);
+            callback (name, torrent);
         }
     };
     reader.readAsArrayBuffer (file);
@@ -206,10 +207,11 @@ function str2ab (str)
     return (ret);
 }
 
-function ReadStringAsync (str, callback)
+function ReadStringAsync (name, str, callback)
 {
     var arraybuffer = str2ab (str);
-    var blob = new Blob([arraybuffer], {type: "application/octet-binary"});
+    var blob = new Blob ([arraybuffer], {type: "application/octet-binary"});
+    blob.name = name;
     ReadTorrentAsync (blob, callback);
 }
 
@@ -363,7 +365,7 @@ function MakeTorrent (template)
         filedata = [];
         for (var i = 0; i < Files.length; i++)
             filedata[filedata.length] = {
-                "length": Blobs[i].byteLength,
+                "length": Files[i].size,
                 "path" : [Files[i].name]
                 };
         infohash = {
