@@ -59,6 +59,16 @@
                     var newval = decode (buffer, true);
                     deepEqual (newval, value, "Binary fidelity test failed.");
                 });
+            test ("negative",
+                    function ()
+                    {
+                        var value = {};
+                        value["negative"] = Number (-1);
+                        var intermediate = encode (value);
+                        var buffer = str2ab (intermediate);
+                        var newval = decode (buffer);
+                        deepEqual (newval, value, "Negative number test failed.");
+                    });
         	module ("sha1");
             test ("simple",
                 function ()

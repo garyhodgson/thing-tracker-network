@@ -104,26 +104,39 @@ decode.integer = function (raw)
     var i;
     var limit;
     var c;
+    var sign;
     var ret;
     
     ret = 0;
     
     i = ++decode.position; // past the 'i'
     limit = decode.size;
+    sign = 1;
     while (i < limit)
         if ((c = decode.data.getUint8 (i)) === 0x65) // 'e'
             break;
         else
         {
-            c -= 0x30; // '0'
-            if ((c < 0) || (c > 9))
-                throw "invalid character '" + String.fromCharCode (c + 0x30) + "' found in number at offset " + i;
-            ret = 10 * ret + c;
+            if (0x2d == c)
+            {
+                if (i == decode.position)
+                    sign = -1;
+                else
+                    throw "minus sign found in the middle of a number at offset " + i;
+            }
+            else
+            {
+                c -= 0x30; // '0'
+                if ((c < 0) || (c > 9))
+                    throw "invalid character(s) '" + String.fromCharCode (c + 0x30) + "' found in number at offset " + i;
+                ret = 10 * ret + c;
+            }
             i++;
         }
     if (++i > limit) // past the 'e'
         throw "'e' not found at end of number at offset " + decode.position;
     decode.position = i;
+    ret *= sign;
 
     return (ret);
 };
