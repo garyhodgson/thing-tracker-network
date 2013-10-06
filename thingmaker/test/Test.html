@@ -15,14 +15,6 @@
         <script language="JavaScript" type="text/javascript" src="../sha1.js"></script>
         <script language="JavaScript" type="text/javascript" src="../ThingMaker.js"></script>
         <script>
-            function str2ab (str)
-            {
-                var buf = new ArrayBuffer (str.length);
-                var bufView = new Uint8Array (buf);
-                for (var i = 0, strLen = str.length; i < strLen; i++)
-                    bufView[i] = str.charCodeAt (i) & 0xff;
-                return (buf);
-            }
         	module ("bencoder");
             test ("hex",
                 function ()

@@ -158,7 +158,8 @@ function ReadTorrent (torrent_file)
     // doesn't get converted to UTF-8 as required by the bencoding specification
     var binary_torrent = decode (torrent_file, true);
     var string_torrent = decode (torrent_file, false);
-    string_torrent["info"]["pieces"] = binary_torrent["info"]["pieces"];
+    if (binary_torrent["info"] && binary_torrent["info"]["pieces"])
+        string_torrent["info"]["pieces"] = binary_torrent["info"]["pieces"];
     var signatures = string_torrent["signatures"];
     if (signatures)
         for (var identifier in signatures)
@@ -205,6 +206,11 @@ function str2ab (str)
         view[i] = (0xff & str.charCodeAt (i));
 
     return (ret);
+}
+
+function info_hash (info)
+{
+    return (sha1 (str2ab (encode (info))));
 }
 
 function ReadStringAsync (name, str, callback)
