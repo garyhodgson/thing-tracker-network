@@ -1,0 +1,3 @@
+[submodule "thingmaker/jsrsasign"]
+	path = thingmaker/jsrsasign
+	url = https://github.com/kjur/jsrsasign.git
