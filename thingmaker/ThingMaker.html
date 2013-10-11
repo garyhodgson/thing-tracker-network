@@ -873,7 +873,7 @@ tiVNNk2MZ6PDp0Kfzmf0FfT1TJELXrsM4VuQVsqdhDBDvmI=
 							request.open ("PUT", url, false);
 							request.setRequestHeader ("Content-Type", "text/plain");
 							request.send (JSON.stringify (Torrent, null, 4));
-							if (request.status / 100 == 2)
+							if (Math.floor (request.status / 100) == 2)
 							    alert ("The request succeeded.\n\nThe response status was: " + request.status + "\n\nThe response representation was:\n\n" + request.responseText)
 							else
 							    alert ("The request did not succeed.\n\nThe response status was: " + request.status + " " + request.statusText + ".\n\n" + request.responseText);
