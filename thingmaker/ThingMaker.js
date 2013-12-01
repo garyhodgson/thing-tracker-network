@@ -122,8 +122,8 @@ function printTorrent (torrent)
         ret = ret.substr (0, index) + "\"pieces\": {\n" + raw_text + "\n" + s + "}" + ret.substr (index + trigger.length);
     }
     // kludgy way to show the certificate
-    index = ret.indexOf (cert);
-    if (0 < index)
+    index = 0;
+    while (0 < (index = ret.indexOf (cert, index)))
     {
         tabspace = 0;
         while (" " == ret.substr (index - tabspace - 1, 1))
@@ -133,10 +133,11 @@ function printTorrent (torrent)
         for (var j = 0; j < tabspace; j++)
             s += " ";
         ret = ret.substr (0, index) + "\"certificate\": {\n" + raw_text + "\n" + s + "}" + ret.substr (index + cert.length);
+        index += cert.length;
     }
     // kludgy way to show the signature
-    index = ret.indexOf (signature);
-    if (0 < index)
+    index = 0;
+    while (0 < (index = ret.indexOf (signature, index)))
     {
         tabspace = 0;
         while (" " == ret.substr (index - tabspace - 1, 1))
@@ -146,6 +147,7 @@ function printTorrent (torrent)
         for (var j = 0; j < tabspace; j++)
             s += " ";
         ret = ret.substr (0, index) + "\"signature\": {\n" + raw_text + "\n" + s + "}" + ret.substr (index + signature.length);
+        index += signature.length;
     }
 
     return (ret);

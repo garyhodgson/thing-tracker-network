@@ -586,6 +586,14 @@ tiVNNk2MZ6PDp0Kfzmf0FfT1TJELXrsM4VuQVsqdhDBDvmI=
                     <div id="bencode_content"></div>
                     Then you can publish your <em>Thing</em> by proudly displaying this magnet link.
                     <div id="magnet_content"></div>
+                    Alternatively, you can push this button to send the thing to the server that
+                    served this page and let the <em>Thing Tracker Network</em> handle it.
+                    <form id="upload_form" action="javascript:upload_form ();">
+                        <ul>
+                            <li><input class="upload_form_button" form="upload_form" type="submit" value="Upload Thing"
+                                name="upload_thing" disabled="disabled"></li>
+                        </ul>
+                    </form>
                     <div id="torrent_content"></div>
                 </div>
             </div>
@@ -682,6 +690,14 @@ tiVNNk2MZ6PDp0Kfzmf0FfT1TJELXrsM4VuQVsqdhDBDvmI=
                     function enablesigning ()
                     {
                         var elements = document.getElementsByName ("sign_thing");
+                        for (i = 0; i < elements.length; i++)
+                            elements[i].removeAttribute ("disabled");
+                    }
+
+                    // enable the Upload Thing button
+                    function enableupload ()
+                    {
+                        var elements = document.getElementsByName ("upload_thing");
                         for (i = 0; i < elements.length; i++)
                             elements[i].removeAttribute ("disabled");
                     }
@@ -819,6 +835,7 @@ tiVNNk2MZ6PDp0Kfzmf0FfT1TJELXrsM4VuQVsqdhDBDvmI=
                         showlink (output);
                         ReadStringAsync (TorrentFileName, output, callback);
                         enablesigning ();
+                        enableupload ();
                     }
 
                     // called on form submit
@@ -843,6 +860,80 @@ tiVNNk2MZ6PDp0Kfzmf0FfT1TJELXrsM4VuQVsqdhDBDvmI=
                                 alert ("Version shouldn't be empty.");
                         }
                     }
+
+                    // called on form submit
+					function upload_form ()
+					{
+                        if (null != Torrent)
+                        {
+                        	// although this looks like it might work, and there is a attachments_multipart test suite
+                        	// it's absolutely useless because headers are ignored, so it's text/plain only, and this returns:
+                        	// 500 Internal Server Error. {"error":"unknown_error","reason":"function_clause"}
+/*                        	
+	                        var info = Torrent["info"];
+	                        var primary_key = info_hash (info);
+                        	var url = "/thingtrackernetwork/" + primary_key;
+                        	var boundary = "dsxmcjfekxlkdfkdlkdek";
+							var request = new XMLHttpRequest ();
+							request.open ("PUT", url, false);
+							request.setRequestHeader ("Content-Type", "multipart/related;boundary=\"" + boundary + "\"");
+							var output = encode (Torrent);
+							var text = btoa (output);             							
+							var body = "--" + boundary + "\r\n";
+							body += "Content-Type: application/json\r\n";
+							body += "\r\n";
+							Torrent["_attachments"] = {};
+							Torrent["_attachments"][TorrentFileName] = {};
+							Torrent["_attachments"][TorrentFileName]["follows"] = true;
+							Torrent["_attachments"][TorrentFileName]["content_type"] = "application/x-bittorrent";
+							Torrent["_attachments"][TorrentFileName]["length"] = text.length; // output.length;
+							body += JSON.stringify (Torrent, null, 4)
+							body += "\r\n";
+							body += "\r\n";
+							body += "--" + boundary + "\r\n";
+							body += "Content-Type: application/x-bittorrent\r\n";
+							body += "Content-Transfer-Encoding: base64\r\n";
+							body += "\r\n";
+							body += text;
+							body += "\r\n";
+							body += "--" + boundary + "--";
+							request.send (body);
+							if (Math.floor (request.status / 100) == 2)
+							    alert ("The request succeeded.\n\nThe response status was: " + request.status + "\n\nThe response representation was:\n\n" + request.responseText)
+							else
+							    alert ("The request did not succeed.\n\nThe response status was: " + request.status + " " + request.statusText + ".\n\n" + request.responseText);
+*/
+
+							// so, instead we do it in two steps, despite the lack of transactions,
+							// first commit the document:
+	                        var info = Torrent["info"];
+	                        var primary_key = info_hash (info);
+                        	var url = "/thingtrackernetwork/" + primary_key;
+							var request = new XMLHttpRequest ();
+							request.open ("PUT", url, false);
+							request.setRequestHeader ("Content-Type", "text/plain");
+							request.send (JSON.stringify (Torrent, null, 4));
+							if (Math.floor (request.status / 100) == 2)
+							{
+							    alert ("The request succeeded.\n\nThe response status was: " + request.status + "\n\nThe response representation was:\n\n" + request.responseText)
+								// next, upload the torrent:
+								var rev = JSON.parse (request.responseText).rev;
+								url = "/thingtrackernetwork/" + primary_key + "/" + maketitle () + ".torrent" + "?rev=" + rev;
+								request.open ("PUT", url, false);
+								request.setRequestHeader ("Content-Type", "application/x-bittorrent");
+								var output = encode (Torrent);
+								request.send (str2ab (output));
+								if (Math.floor (request.status / 100) == 2)
+								    alert ("The request succeeded.\n\nThe response status was: " + request.status + "\n\nThe response representation was:\n\n" + request.responseText)
+								else
+								    alert ("The request did not succeed.\n\nThe response status was: " + request.status + " " + request.statusText + ".\n\n" + request.responseText);
+							}
+							else
+							    alert ("The request did not succeed.\n\nThe response status was: " + request.status + " " + request.statusText + ".\n\n" + request.responseText);
+							
+
+                        }
+					}
 
                     function cb3 (sha)
                     {
