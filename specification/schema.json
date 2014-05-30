@@ -1,6 +1,9 @@
 {
    "type":"object",
    "properties":{
+      "id":{
+         "type":"string"
+      },
       "version":{
          "type":"number"
       },
@@ -50,9 +53,8 @@
          "items":{
             "type":"object",
             "properties":{
-               "uuid":{
+               "id":{
                   "type":"string",
-                  "pattern":"[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}",
                   "required":true
                },
                "title":{
@@ -272,10 +274,8 @@
          "items":{
             "type":"object",
             "properties":{
-               "uuid":{
-                  "type":"string",
-                  "pattern":"[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}",
-                  "required":true
+               "id":{
+                  "type":"string"
                },
                "url":{
                   "type":"string",

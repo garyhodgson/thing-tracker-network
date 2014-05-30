@@ -1,5 +1,6 @@
 {
    "version":0.0,
+   "id":"832769e0-e7fc-11e3-ac10-0800200c9a66",
    "url":"http://garyhodgson.com/thingtracker",
    "description":"An example tracker to demonstrate how it might look.",
    "updated":"2013-01-22T23:45:00+01:00",
@@ -15,7 +16,7 @@
    ],
    "things":[
       {
-         "uuid":"cdebf011-e999-4dc5-b4c2-c4163f5584a0",
+         "id":"cdebf011-e999-4dc5-b4c2-c4163f5584a0",
          "title":"strandbeest",
          "url":"http://garyhodgson.github.com/strandbeest",
          "authors":[
@@ -38,7 +39,7 @@
          "description":"Work in Progress!!\\n\\nMy take on implementing Theo Jansen's Strandbeest on a 3D printer.\\n\\nUsing the \"Theo Jansen Linkage 11 holy numbers\" together with the top j strut as a reference point use the ratio to determine lengths See: http://www.strandbeest.com/beests_leg.php and http://www.instructables.com/community/theo-jansen-mechanism-1/"
       },
       {
-         "uuid":"f8736600-ff82-4a92-a5e9-fdeeeeb259fe",
+         "id":"f8736600-ff82-4a92-a5e9-fdeeeeb259fe",
          "title":"Mechanical Movement #27",
          "url":"http://garyhodgson.github.com/githubiverse-tst",
          "authors":[
@@ -181,7 +182,7 @@
    },
    "trackers":[
       {
-         "uuid":"3d715220-ae50-44d1-b4fd-1eabdc71c00a",
+         "id":"3d715220-ae50-44d1-b4fd-1eabdc71c00a",
          "url":"http://reprap.development-tracker.info/thingtracker",
          "accessed":"2013-01-22T23:00:00+01:00",
          "status":"ok",

@@ -1,6 +1,7 @@
 schema({
 
-  "*version": Number,
+  "*id": String,
+  "*version": String,
   "*url": String,
   "*description": String,
   "*updated": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
@@ -16,7 +17,7 @@ schema({
 
   "things" : Array.of({
 
-    "id": /[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}/,
+    "id": String,
     "title": String,
     "*url": String,
     "*refUrl": String,
@@ -89,8 +90,8 @@ schema({
 
 
   "*trackers" : Array.of({
-    "uuid": /[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}/,
-    "url": String,
+    "*id": String,
+    "*url": String,
     "*accessed": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
     "*status": /\bunknown\b|\bok\b|\berror\b/,
 
