@@ -3,9 +3,9 @@
    "url":"http://garyhodgson.com/thingtracker",
    "description":"An example tracker to demonstrate how it might look.",
    "updated":"2013-01-22T23:45:00+01:00",
-   "things-count":2,
-   "trackers-count":1,
-   "trackers-traversal-depth":1,
+   "thingsCount":2,
+   "trackersCount":1,
+   "trackersTraversalDepth":1,
    "maintainers":[
       {
          "name":"Gary Hodgson",
@@ -32,7 +32,7 @@
             "mechanical movement",
             "fun"
          ],
-         "thumbnail-urls":[
+         "thumbnailUrls":[
             "https://github.com/garyhodgson/strandbeest/raw/master/img/assembly.png"
          ],
          "description":"Work in Progress!!\\n\\nMy take on implementing Theo Jansen's Strandbeest on a 3D printer.\\n\\nUsing the \"Theo Jansen Linkage 11 holy numbers\" together with the top j strut as a reference point use the ratio to determine lengths See: http://www.strandbeest.com/beests_leg.php and http://www.instructables.com/community/theo-jansen-mechanism-1/"
@@ -50,7 +50,7 @@
          "licenses":[
             "GPL3"
          ],
-         "thumbnail-urls":[
+         "thumbnailUrls":[
             "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg"
          ],
          "description":"An implementation of movement #27 from \"501 Mechanical Movements\" by Henry T. Brown.\\n\\nThis is still a work in progress.",
@@ -87,61 +87,61 @@
                "url":"http://www.instructables.com/community/theo-jansen-mechanism-1"
             }
          ],
-         "bill-of-materials":[
+         "billOfMaterials":[
             {
-               "part-number":"1",
+               "partNumber":"1",
                "description":"Frame",
                "url":"https://github.com/garyhodgson/githubiverse-tst/raw/master/stl/MechanicalMovement27_frame.stl",
                "type":"generated",
                "mimetype":"application/sla",
-               "thumbnail-url":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/frame.png",
-               "x-bom-metadata":{
+               "thumbnailUrl":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/frame.png",
+               "xBomMetadata":{
                   "note":"This part has not yet been tested."
                }
             },
             {
-               "part-number":"2",
+               "partNumber":"2",
                "description":"Small Wheel",
                "url":"https://raw.github.com/garyhodgson/githubiverse-tst/master/stl/MechanicalMovement27_small_wheel.stl",
                "type":"generated",
                "mimetype":"application/sla",
-               "thumbnail-url":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/small_wheel.png"
+               "thumbnailUrl":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/small_wheel.png"
             },
             {
-               "part-number":"3",
+               "partNumber":"3",
                "description":"Wheel",
                "url":"https://raw.github.com/garyhodgson/githubiverse-tst/master/stl/MechanicalMovement27_wheel.stl",
                "type":"generated",
                "mimetype":"application/sla",
-               "thumbnail-url":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/wheel.png"
+               "thumbnailUrl":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/wheel.png"
             },
             {
-               "part-number":"4",
+               "partNumber":"4",
                "description":"OpenSCAD Source Code",
                "url":"https://raw.github.com/garyhodgson/githubiverse-tst/master/src/MechanicalMovement27.scad",
                "type":"source",
                "mimetype":"application/x-scad"
             },
             {
-               "part-number":"5",
+               "partNumber":"5",
                "description":"623ZZ Bearing",
                "unit":"EA",
                "quantity":3
             },
             {
-               "part-number":"6",
+               "partNumber":"6",
                "description":"M3 Bolt",
                "unit":"EA",
                "quantity":3
             },
             {
-               "part-number":"7",
+               "partNumber":"7",
                "description":"M4 Bolt",
                "unit":"EA",
                "quantity":1
             },
             {
-               "part-number":"8",
+               "partNumber":"8",
                "description":"M5 Bolt",
                "unit":"EA",
                "quantity":1
@@ -151,7 +151,7 @@
             {
                "step":1,
                "text":"Print out the Frame, Small Wheel and Large Wheel.",
-               "image-urls":[
+               "imageUrls":[
                   "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/frame.png",
                   "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/wheel.png",
                   "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/small_wheel.png"
@@ -164,19 +164,19 @@
             {
                "step":3,
                "text":"Connect the small and large wheel to the frame with an M4 and M5 bolt respectively.",
-               "image-urls":[
+               "imageUrls":[
                   "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg"
                ],
-               "x-instruction-metadata":{
+               "xInstructionMetadata":{
                   "note":"So far the wheels have been printed and tested, but not yet the frame. This is shown in the attached image."
                }
             }
          ]
       }
    ],
-   "things-cache":{
+   "thingsCache":{
       "url":"http://garyhodgson.com/thingtracker/thingscache",
-      "things-count":302,
+      "thingsCount":302,
       "updated":"2013-01-22T23:00:00+01:00"
    },
    "trackers":[
@@ -185,9 +185,9 @@
          "url":"http://reprap.development-tracker.info/thingtracker",
          "accessed":"2013-01-22T23:00:00+01:00",
          "status":"ok",
-         "things-cache":{
+         "thingsCache":{
             "url":"http://garyhodgson.com/thingtracker/tracker/3d715220-ae50-44d1-b4fd-1eabdc71c00a/thingscache",
-            "things-count":300,
+            "thingsCount":300,
             "updated":"2013-01-22T23:02:00+01:00"
          }
       }

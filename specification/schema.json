@@ -14,13 +14,13 @@
          "type":"string",
          "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
       },
-      "things-count":{
+      "thingsCount":{
          "type":"number"
       },
-      "trackers-count":{
+      "trackersCount":{
          "type":"number"
       },
-      "trackers-traversal-depth":{
+      "trackersTraversalDepth":{
          "type":"number"
       },
       "maintainers":{
@@ -38,7 +38,7 @@
                "email":{
                   "type":"string"
                },
-               "x-identity-metadata":{
+               "xIdentityMetadata":{
                   "type":"object",
                   "id":"id-42300"
                }
@@ -78,7 +78,7 @@
                         "email":{
                            "type":"string"
                         },
-                        "x-identity-metadata":{
+                        "xIdentityMetadata":{
                            "$ref":"id-42300"
                         }
                      }
@@ -90,7 +90,7 @@
                      "type":"string"
                   }
                },
-               "thumbnail-urls":{
+               "thumbnailUrls":{
                   "type":"array",
                   "items":{
                      "type":"string"
@@ -131,7 +131,7 @@
                            "email":{
                               "type":"string"
                            },
-                           "x-identity-metadata":{
+                           "xIdentityMetadata":{
                               "$ref":"id-42300"
                            }
                         }
@@ -173,18 +173,18 @@
                         "url":{
                            "type":"string"
                         },
-                        "x-relationship-metadata":{
+                        "xRelationshipMetadata":{
                            "$ref":"id-42300"
                         }
                      }
                   }
                },
-               "bill-of-materials":{
+               "billOfMaterials":{
                   "type":"array",
                   "items":{
                      "type":"object",
                      "properties":{
-                        "part-number":{
+                        "partNumber":{
                            "type":"string"
                         },
                         "description":{
@@ -206,10 +206,10 @@
                         "quantity":{
                            "type":"number"
                         },
-                        "thumbnail-url":{
+                        "thumbnailUrl":{
                            "type":"string"
                         },
-                        "x-bom-metadata":{
+                        "xBomMetadata":{
                            "$ref":"id-42300"
                         }
                      }
@@ -226,45 +226,45 @@
                         "text":{
                            "type":"string"
                         },
-                        "image-urls":{
+                        "imagUurls":{
                            "type":"array",
                            "items":{
                               "type":"string"
                            }
                         },
-                        "x-instruction-metadata":{
+                        "xInstructionMetadata":{
                            "$ref":"id-42300"
                         }
                      }
                   }
                },
-               "x-thing-metadata":{
+               "xThingMetadata":{
                   "$ref":"id-42300"
                }
             }
          },
          "required":true
       },
-      "things-cache":{
+      "thingsCache":{
          "type":"object",
          "properties":{
             "url":{
                "type":"string",
                "required":true
             },
-            "things-count":{
+            "thingsCount":{
                "type":"number"
             },
             "updated":{
                "type":"string",
                "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
             },
-            "x-things-cache-metadata":{
+            "xThingsCacheMetadata":{
                "$ref":"id-42300"
             }
          }
       },
-      "x-tracker-metadata":{
+      "xTrackerMetadata":{
          "$ref":"id-42300"
       },
       "trackers":{
@@ -289,21 +289,21 @@
                   "type":"string",
                   "pattern":"\\bunknown\\b|\\bok\\b|\\berror\\b"
                },
-               "things-cache":{
+               "thingsCache":{
                   "type":"object",
                   "properties":{
                      "url":{
                         "type":"string",
                         "required":true
                      },
-                     "things-count":{
+                     "thingsCount":{
                         "type":"number"
                      },
                      "updated":{
                         "type":"string",
                         "pattern":"^\\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\\.?\\d+(([+|-]{1}\\d+:\\d+)|Z)$"
                      },
-                     "x-things-cache-metadata":{
+                     "xThingsCacheMetadata":{
                         "$ref":"id-42300"
                      }
                   }

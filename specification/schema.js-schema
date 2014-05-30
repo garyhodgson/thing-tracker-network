@@ -4,14 +4,14 @@ schema({
   "*url": String,
   "*description": String,
   "*updated": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
-  "*things-count": Number,
+  "*thingsCount": Number,
   "*trackers-count": Number,
-  "*trackers-traversal-depth": Number,
+  "*trackersTraversal-depth": Number,
   "*maintainers": Array.of({
     "name": String,
     "*url": String,
     "*email": String,
-    "*x-identity-metadata": Object
+    "*xIdentityMetadata": Object
   }),
 
   "things" : Array.of({
@@ -19,16 +19,16 @@ schema({
     "id": /[0-9A-Fa-f]{8}(-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}/,
     "title": String,
     "*url": String,
-    "*ref-url": String,
+    "*refUrl": String,
 
     "*authors": Array.of({
       "name": String,
       "*url": String,
       "*email": String,
-      "*x-identity-metadata": Object
+      "*xIdentityMetadata": Object
     }),
     "*licenses": Array.of(String),
-    "*thumbnail-urls": Array.of(String),
+    "*thumbnailUrls": Array.of(String),
     "*description": String,
 
     "*created": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
@@ -41,7 +41,7 @@ schema({
         "name": String,
         "*url": String,
         "*email": String,
-        "*x-identity-metadata": Object
+        "*xIdentityMetadata": Object
       },
     },
 
@@ -53,39 +53,39 @@ schema({
     "*relationships": Array.of({
       "*type": String,
       "*url": String,
-      "*x-relationship-metadata": Object
+      "*xRelationshipMetadata": Object
     }),
 
-    "*bill-of-materials": Array.of({
-      "*part-number": String,
+    "*billOfMaterials": Array.of({
+      "*partNumber": String,
       "*description": String,
       "*type": /\bsource\b|\bgenerated\b|\bbom\b|\bimage\b|\bthing\b/,
       "*url": String,
       "*mimetype": String,
       "*unit": String,
       "*quantity": Number,
-      "*thumbnail-url": String,
-      "*x-bom-metadata": Object
+      "*thumbnailUrl": String,
+      "*xBomMetadata": Object
     }),
 
     "*instructions": Array.of({
       "*step": Number,
       "*text": String,
-      "*image-urls": Array.of(String),
-      "*x-instruction-metadata": Object
+      "*imageUrls": Array.of(String),
+      "*xInstructionMetadata": Object
     }),
 
-    "*x-thing-metadata": Object
+    "*xThingMetadata": Object
   }),
 
-  "*things-cache": {
+  "*thingsCache": {
     "url": String,
-    "*things-count": Number,
+    "*thingsCount": Number,
     "*updated": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
-    "*x-things-cache-metadata": Object,
+    "*xThingsCacheMetadata": Object,
   },
 
-  "*x-tracker-metadata": Object,
+  "*xTrackerMetadata": Object,
 
 
   "*trackers" : Array.of({
@@ -94,11 +94,11 @@ schema({
     "*accessed": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
     "*status": /\bunknown\b|\bok\b|\berror\b/,
 
-    "*things-cache": {
+    "*thingsCache": {
       "url": String,
-      "*things-count": Number,
+      "*thingsCount": Number,
       "*updated": /^\d{4}-[01]?[0-9]{1}-[0123]?[0-9]{1}T[012]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}\.?\d+(([+|-]{1}\d+:\d+)|Z)$/,
-      "*x-things-cache-metadata": Object,
+      "*xThingsCacheMetadata": Object,
     },
   }),
 
