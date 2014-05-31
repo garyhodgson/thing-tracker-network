@@ -169,6 +169,9 @@
                   "items":{
                      "type":"object",
                      "properties":{
+                        "title":{
+                           "type":"string"
+                        },
                         "type":{
                            "type":"string"
                         },

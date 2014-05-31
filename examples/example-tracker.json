@@ -80,10 +80,12 @@
          ],
          "relationships":[
             {
+               "title":"Details of the legs.",
                "type":"reference",
                "url":"http://www.strandbeest.com/beests_leg.php"
             },
             {
+               "title":"Example implementation.",
                "type":"reference",
                "url":"http://www.instructables.com/community/theo-jansen-mechanism-1"
             }

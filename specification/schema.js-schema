@@ -52,6 +52,7 @@ schema({
     "*tags": Array.of(String),
 
     "*relationships": Array.of({
+      "*title": String,
       "*type": String,
       "*url": String,
       "*xRelationshipMetadata": Object
