@@ -20,6 +20,7 @@ schema({
     "id": String,
     "title": String,
     "*url": String,
+    "*downloadUrl": String,
     "*refUrl": String,
 
     "*authors": Array.of({

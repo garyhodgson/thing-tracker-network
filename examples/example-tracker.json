@@ -41,7 +41,7 @@
       {
          "id":"f8736600-ff82-4a92-a5e9-fdeeeeb259fe",
          "title":"Mechanical Movement #27",
-         "url":"http://garyhodgson.github.com/githubiverse-tst",
+         "url":"https://github.com/garyhodgson/mechanical-movement-27",
          "authors":[
             {
                "name":"Gary Hodgson",
@@ -52,7 +52,7 @@
             "GPL3"
          ],
          "thumbnailUrls":[
-            "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg"
+            "https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/test-jig.jpg"
          ],
          "description":"An implementation of movement #27 from \"501 Mechanical Movements\" by Henry T. Brown.\\n\\nThis is still a work in progress.",
          "created":"2012-09-03T14:50:20.000Z",
@@ -94,10 +94,10 @@
             {
                "partNumber":"1",
                "description":"Frame",
-               "url":"https://github.com/garyhodgson/githubiverse-tst/raw/master/stl/MechanicalMovement27_frame.stl",
+               "url":"https://github.com/garyhodgson/mechanical-movement-27/raw/master/stl/MechanicalMovement27_frame.stl",
                "type":"generated",
                "mimetype":"application/sla",
-               "thumbnailUrl":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/frame.png",
+               "thumbnailUrl":"https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/frame.png",
                "xBomMetadata":{
                   "note":"This part has not yet been tested."
                }
@@ -105,23 +105,23 @@
             {
                "partNumber":"2",
                "description":"Small Wheel",
-               "url":"https://raw.github.com/garyhodgson/githubiverse-tst/master/stl/MechanicalMovement27_small_wheel.stl",
+               "url":"https://raw.github.com/garyhodgson/mechanical-movement-27/master/stl/MechanicalMovement27_small_wheel.stl",
                "type":"generated",
                "mimetype":"application/sla",
-               "thumbnailUrl":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/small_wheel.png"
+               "thumbnailUrl":"https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/small_wheel.png"
             },
             {
                "partNumber":"3",
                "description":"Wheel",
-               "url":"https://raw.github.com/garyhodgson/githubiverse-tst/master/stl/MechanicalMovement27_wheel.stl",
+               "url":"https://raw.github.com/garyhodgson/mechanical-movement-27/master/stl/MechanicalMovement27_wheel.stl",
                "type":"generated",
                "mimetype":"application/sla",
-               "thumbnailUrl":"https://github.com/garyhodgson/githubiverse-tst/raw/master/img/wheel.png"
+               "thumbnailUrl":"https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/wheel.png"
             },
             {
                "partNumber":"4",
                "description":"OpenSCAD Source Code",
-               "url":"https://raw.github.com/garyhodgson/githubiverse-tst/master/src/MechanicalMovement27.scad",
+               "url":"https://raw.github.com/garyhodgson/mechanical-movement-27/master/src/MechanicalMovement27.scad",
                "type":"source",
                "mimetype":"application/x-scad"
             },
@@ -155,9 +155,9 @@
                "step":1,
                "text":"Print out the Frame, Small Wheel and Large Wheel.",
                "imageUrls":[
-                  "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/frame.png",
-                  "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/wheel.png",
-                  "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/small_wheel.png"
+                  "https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/frame.png",
+                  "https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/wheel.png",
+                  "https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/small_wheel.png"
                ]
             },
             {
@@ -168,7 +168,7 @@
                "step":3,
                "text":"Connect the small and large wheel to the frame with an M4 and M5 bolt respectively.",
                "imageUrls":[
-                  "https://github.com/garyhodgson/githubiverse-tst/raw/master/img/test-jig.jpg"
+                  "https://github.com/garyhodgson/mechanical-movement-27/raw/master/img/test-jig.jpg"
                ],
                "xInstructionMetadata":{
                   "note":"So far the wheels have been printed and tested, but not yet the frame. This is shown in the attached image."

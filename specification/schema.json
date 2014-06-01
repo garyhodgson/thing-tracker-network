@@ -62,8 +62,10 @@
                   "required":true
                },
                "url":{
-                  "type":"string",
-                  "required":true
+                  "type":"string"
+               },
+               "downloadUrl":{
+                  "type":"string"
                },
                "authors":{
                   "type":"array",
