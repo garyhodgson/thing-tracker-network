@@ -233,7 +233,7 @@
                         "text":{
                            "type":"string"
                         },
-                        "imagUurls":{
+                        "images":{
                            "type":"array",
                            "items":{
                               "type":"string"
