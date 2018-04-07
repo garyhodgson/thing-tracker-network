@@ -1,3 +1,8 @@
+
+# Dormant Project
+
+**Please note that this project is no longer actively maintained.**
+
 # Thing Tracker Network
 
 This repository holds the specification for the Thing Tracker Network proposal.
@@ -20,6 +25,4 @@ A simple Javascript program to read a torrent file (which could be created from 
 [ThingMaker Page](http://htmlpreview.github.com/?https://github.com/derrickoswald/thing-tracker-network/blob/master/thingmaker/ThingMaker.html).
 
 ## Further Information
-* [Thingtracker.net](http://thingtracker.net)
 * [Thing Tracker Network Google+ Community](https://plus.google.com/u/0/communities/112691591186958693265)
-* [Email](mailto:contact@thingtracker.net)
